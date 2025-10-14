@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MERGED FINANCIAL CALCULATOR</title>
+    <title>MOBILE MONEY AND CAPITAL CALCULATOR</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -44,7 +44,7 @@
 <body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
 
     <div class="w-full max-w-lg card bg-white rounded-xl p-6 md:p-10">
-        <h1 class="text-3xl font-extrabold text-sky-700 mb-6 text-center">MERGED FINANCIAL CALCULATOR</h1>
+        <h1 class="text-3xl font-extrabold text-sky-700 mb-6 text-center">MOBILE MONEY AND CAPITAL CALCULATOR</h1>
         
         <div class="flex tab-divider mb-8">
             <button id="tab-euro-to-taka" 
@@ -577,8 +577,11 @@
                 
                 // Also update the BDT 2% charge box to the emerald theme (as it was hardcoded to red-100 in the original, this makes it consistent)
                 const bdtWithPercentOutputBox = document.querySelector('#takaToEuroSection > .mt-8 > div:nth-child(1)');
+                bdtWithPercentOutputBox.classList.remove('bg-red-100'); // Clean up from previous state
                 bdtWithPercentOutputBox.classList.add('bg-emerald-100');
+                bdtWithPercentOutputBox.querySelector('span:first-child').classList.remove('text-red-800');
                 bdtWithPercentOutputBox.querySelector('span:first-child').classList.add('text-emerald-800');
+                bdtWithPercentOutputBox.querySelector('span:last-child').classList.remove('text-red-900');
                 bdtWithPercentOutputBox.querySelector('span:last-child').classList.add('text-emerald-900');
 
 
