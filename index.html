@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOBILE MONEY CALCULATOR</title>
+    <title>MERGED FINANCIAL CALCULATOR</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use Inter font -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         
@@ -23,7 +22,6 @@
         }
 
         /* --- Custom Tab Bar and Button Structural Styles --- */
-        /* Note: Colors and active state are managed by Tailwind classes and JavaScript */
         .tab-button {
             border-bottom-width: 4px; /* Thicker border for clarity */
             margin-bottom: -2px; /* Pull the button over the divider line */
@@ -38,7 +36,6 @@
 
         /* Custom hover style for the tab buttons using the requested color #04AA6D */
         .tab-button.hover-teal:hover {
-            /* This hover style is applied to inactive tabs for a consistent hover effect */
             background-color: #04AA6D !important; /* Override light backgrounds on hover */
             color: white !important; /* Ensure text is visible on dark hover */
         }
@@ -47,10 +44,8 @@
 <body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
 
     <div class="w-full max-w-lg card bg-white rounded-xl p-6 md:p-10">
-        <!-- H1 Title size increased to text-3xl -->
-        <h1 class="text-3xl font-extrabold text-sky-700 mb-6 text-center">MOBILE MONEY CALCULATOR</h1>
+        <h1 class="text-3xl font-extrabold text-sky-700 mb-6 text-center">MERGED FINANCIAL CALCULATOR</h1>
         
-        <!-- Tab Navigation (Enhanced Styling) -->
         <div class="flex tab-divider mb-8">
             <button id="tab-euro-to-taka" 
                     class="tab-button flex-1 py-3 text-center rounded-t-lg transition duration-200 ease-in-out" 
@@ -62,17 +57,17 @@
                     onclick="showSection('takaToEuro')">
                 Taka to Euro
             </button>
-        </div>
+            <button id="tab-capital-adjustment" 
+                    class="tab-button flex-1 py-3 text-center rounded-t-lg transition duration-200 ease-in-out" 
+                    onclick="showSection('capitalAdjustment')">
+                Capital Adj.
+            </button>
+            </div>
 
-        <!-- Calculator 1: Euro to Taka Section (SKY BLUE THEME) -->
         <div id="euroToTakaSection" class="calculator-section">
             <h2 class="text-xl font-bold text-gray-700 mb-4">Euro to Taka Calculation</h2>
-            <!-- Inputs -->
             <div class="space-y-6">
-                
-                <!-- MOVED TO TOP: 1. Exchange Rate (BDT per €) -->
                 <div class="input-group">
-                    <!-- Label increased to text-xl -->
                     <label for="exchangeRate" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-sky-50">1. Exchange Rate (BDT per €)</label>
                     <div class="mt-1 relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -80,13 +75,11 @@
                         </div>
                         <input type="number" id="exchangeRate" min="0" step="0.01"
                                class="block w-full rounded-lg border-2 border-sky-400 focus:border-sky-700 focus:ring-sky-700 p-3 sm:text-sm transition duration-150"
-                               placeholder="000"> <!-- Placeholder is 000 -->
+                               placeholder="000">
                     </div>
                 </div>
 
-                <!-- MOVED TO BOTTOM: 2. Enter Amount in Euro (€) -->
                 <div class="input-group">
-                    <!-- Label increased to text-xl -->
                     <label for="euroAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-sky-50">2. Enter Amount in Euro (€)</label>
                     <div class="mt-1 relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -94,16 +87,14 @@
                         </div>
                         <input type="number" id="euroAmount" min="0" step="0.01"
                                class="block w-full rounded-lg border-2 border-sky-400 focus:border-sky-700 focus:ring-sky-700 p-3 sm:text-sm transition duration-150"
-                               placeholder="000"> <!-- Placeholder is 000 -->
+                               placeholder="000">
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Select Buttons for Euro (UPDATED with smaller denominations) -->
-            <div class="w-full mt-6"> <!-- Added mt-6 for spacing after the inputs -->
+            <div class="w-full mt-6">
                 <p class="text-sm font-medium text-gray-500 mb-2">Quick Select (€):</p>
                 <div class="flex flex-wrap gap-2">
-                    <!-- NEW SMALLER VALUES ADDED -->
                     <button onclick="setAmount(10, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€10</button>
                     <button onclick="setAmount(15, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€15</button>
                     <button onclick="setAmount(20, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€20</button>
@@ -111,7 +102,6 @@
                     <button onclick="setAmount(30, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€30</button>
                     <button onclick="setAmount(35, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€35</button>
                     <button onclick="setAmount(40, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€40</button>
-                    <!-- EXISTING VALUES -->
                     <button onclick="setAmount(50, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€50</button>
                     <button onclick="setAmount(100, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€100</button>
                     <button onclick="setAmount(150, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€150</button>
@@ -120,23 +110,16 @@
                     <button onclick="setAmount(299, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€299</button>
                 </div>
             </div>
-            <!-- End Quick Select Buttons for Euro -->
-
-            <!-- Clear Button -->
             <button onclick="clearInputs()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-150 shadow-md mt-6">
-                Clear Euro/Taka Data
+                Clear All Data
             </button>
 
-            <!-- Output Section -->
             <div class="mt-8 pt-6 border-t border-sky-200 space-y-3">
                 <div class="flex justify-between items-center p-3 bg-sky-100 rounded-lg">
-                    <!-- Text size increased to text-lg -->
                     <span class="text-lg font-medium text-sky-800">Gross Value (Fee Tier Check)</span>
                     <span id="grossTakaOutput" class="text-lg font-semibold text-sky-900">0.00 BDT</span>
                 </div>
-                <!-- Fee deduction is highlighted in Red (Warning color) -->
                 <div class="flex justify-between items-center p-3 bg-red-100 rounded-lg">
-                    <!-- Text size increased to text-lg -->
                     <span class="text-lg font-medium text-red-800 font-semibold">Fixed Charge Deducted (EURO)</span>
                     <span id="feeAmountEuroOutput" class="text-lg font-extrabold text-red-900">0.00 €</span>
                 </div>
@@ -145,97 +128,63 @@
                     <span id="finalTakaOutput" class="text-2xl font-extrabold text-sky-900">0.00 BDT</span>
                 </div>
 
-                <!-- NEW: Alternative Output Section - Hidden by default -->
                 <div id="alternativeTakaOutputBox" class="flex justify-between items-center p-3 bg-yellow-100 rounded-lg hidden transition duration-300 ease-in-out">
                     <span id="alternativeTakaLabel" class="text-lg font-medium text-yellow-800">Alternative Output (Lower Fee Tier)</span>
                     <span id="alternativeTakaOutput" class="text-lg font-semibold text-yellow-900">0.00 BDT</span>
                 </div>
-                <!-- END NEW OUTPUT -->
-            </div>
+                </div>
         </div>
 
-        <!-- Calculator 2: Taka to Euro Section (EMERALD GREEN THEME) -->
         <div id="takaToEuroSection" class="calculator-section hidden">
             <h2 class="text-xl font-bold text-gray-700 mb-4">Taka to Euro Calculation</h2>
-            <!-- Inputs -->
             <div class="space-y-6">
                  <div class="input-group">
-                    <!-- Label theme changed to emerald -->
                     <label for="bdtToEuroRate" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-emerald-50">1. Exchange Rate (BDT per €)</label>
                     <div class="mt-1 relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span class="text-gray-500 sm:text-sm">BDT</span>
                         </div>
-                        <!-- Input border changed to emerald -->
                         <input type="number" id="bdtToEuroRate" min="0" step="0.01"
                                class="block w-full rounded-lg border-2 border-emerald-400 focus:border-emerald-700 focus:ring-emerald-700 p-3 sm:text-sm transition duration-150"
-                               placeholder="000"> <!-- Placeholder is 000 -->
+                               placeholder="000">
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <!-- Label theme changed to emerald -->
                     <label for="bdtToEuroAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-emerald-50">2. Enter Amount in Taka (BDT)</label>
                     <div class="mt-1 relative rounded-md shadow-sm">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span class="text-gray-500 sm:text-sm">BDT</span>
                         </div>
-                        <!-- Input border changed to emerald -->
                         <input type="number" id="bdtToEuroAmount" min="0" step="0.01"
                                class="block w-full rounded-lg border-2 border-emerald-400 focus:border-emerald-700 focus:ring-emerald-700 p-3 sm:text-sm transition duration-150"
-                               placeholder="000"> <!-- Placeholder is 000 -->
+                               placeholder="000">
                     </div>
                 </div>
 
-                <!-- Quick Select Buttons for BDT (THEME CHANGED TO EMERALD) -->
                 <div class="w-full">
                     <p class="text-sm font-medium text-gray-500 mb-2">Quick Select (BDT):</p>
                     <div class="flex flex-wrap gap-1">
                         <button onclick="setAmount(1000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">1000 BDT</button>
-                        <button onclick="setAmount(2000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">2000 BDT</button>
-                        <button onclick="setAmount(3000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">3000 BDT</button>
-                        <button onclick="setAmount(4000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">4000 BDT</button>
                         <button onclick="setAmount(5000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">5000 BDT</button>
-                        <button onclick="setAmount(6000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">6000 BDT</button>
-                        <button onclick="setAmount(7000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">7000 BDT</button>
-                        <button onclick="setAmount(8000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">8000 BDT</button>
-                        <button onclick="setAmount(9000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">9000 BDT</button>
                         <button onclick="setAmount(10000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">10000 BDT</button>
-                        <button onclick="setAmount(11000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">11000 BDT</button>
-                        <button onclick="setAmount(12000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">12000 BDT</button>
-                        <button onclick="setAmount(13000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">13000 BDT</button>
-                        <button onclick="setAmount(14000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">14000 BDT</button>
                         <button onclick="setAmount(15000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">15000 BDT</button>
-                        <button onclick="setAmount(16000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">16000 BDT</button>
-                        <button onclick="setAmount(17000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">17000 BDT</button>
-                        <button onclick="setAmount(18000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">18000 BDT</button>
-                        <button onclick="setAmount(19000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">19000 BDT</button>
                         <button onclick="setAmount(20000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">20000 BDT</button>
-                        <button onclick="setAmount(25000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">25000 BDT</button>
-                        <button onclick="setAmount(30000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">30000 BDT</button>
                         <button onclick="setAmount(50000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">50000 BDT</button>
                     </div>
                 </div>
-                <!-- End Quick Select Buttons for BDT -->
-
-
-            </div>
+                </div>
             
-            <!-- Clear Button -->
             <button onclick="clearInputs()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-150 shadow-md mt-6">
-                Clear Euro/Taka Data
+                Clear All Data
             </button>
 
-            <!-- Output Section (THEME CHANGED TO EMERALD) -->
             <div class="mt-8 pt-6 border-t border-emerald-200 space-y-3">
                 <div class="flex justify-between items-center p-3 bg-emerald-100 rounded-lg">
-                    <!-- Text size increased to text-lg -->
                     <span class="text-lg font-medium text-emerald-800">BDT Amount with 2% Charge</span>
                     <span id="bdtWithPercentOutput" class="text-lg font-semibold text-emerald-900">0.00 BDT</span>
                 </div>
-                <!-- Fixed charge is highlighted in Red (Warning color), kept for contrast -->
                 <div class="flex justify-between items-center p-3 bg-red-100 rounded-lg">
-                    <!-- Text size increased to text-lg -->
                     <span class="text-lg font-medium text-red-800 font-semibold">Fixed Charge Added (EURO)</span>
                     <span id="fixedEuroChargeBdtToEuroOutput" class="text-lg font-extrabold text-red-900">0.00 €</span>
                 </div>
@@ -245,8 +194,40 @@
                 </div>
             </div>
         </div>
+        
+        <div id="capitalAdjustmentSection" class="calculator-section hidden">
+             <h2 class="text-xl font-bold text-gray-700 mb-4">Capital Adjustment Calculation</h2>
+            <p class="text-gray-500 mb-6 border-b pb-4">Calculates adjustments based on a starting Capital Amount in BDT (2.439% deduction, followed by 2.5% addition).</p>
 
-        <!-- DEVELOPER CREDIT START (Moved to bottom of card) -->
+            <div class="space-y-6">
+                 <div class="input-group">
+                    <label for="capitalAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-indigo-50">1. Enter Capital Amount (BDT)</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="text-gray-500 sm:text-sm">BDT</span>
+                        </div>
+                        <input type="number" id="capitalAmount" min="0" step="0.01"
+                               class="block w-full rounded-lg border-2 border-indigo-400 focus:border-indigo-700 focus:ring-indigo-700 p-3 sm:text-sm transition duration-150"
+                               placeholder="000">
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="clearInputs()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-150 shadow-md mt-6">
+                Clear All Data
+            </button>
+
+            <div class="mt-8 pt-6 border-t border-indigo-200 space-y-3">
+                <div class="flex justify-between items-center p-3 bg-indigo-100 rounded-lg">
+                    <span class="text-lg font-medium text-indigo-800">First Output (Capital - 2.439%)</span>
+                    <span id="firstOutput" class="text-lg font-semibold text-indigo-900">0.00 BDT</span>
+                </div>
+                <div class="flex justify-between items-center p-4 bg-indigo-100 border-l-4 border-indigo-700 rounded-lg">
+                    <span class="text-lg font-bold text-indigo-800">Final Input Value (First Output + 2.5%)</span>
+                    <span id="finalOutput" class="text-2xl font-extrabold text-indigo-900">0.00 BDT</span>
+                </div>
+            </div>
+        </div>
         <div class="mt-8 pt-4 border-t border-gray-200 text-center text-sm text-gray-500">
             Developed by: Syed Nadir Ahmed
             <div class="flex justify-center space-x-4 mt-1">
@@ -254,14 +235,11 @@
                 <a href="https://bd.linkedin.com/in/syed-nadir-ahmed-20156213a" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-150">LinkedIn</a>
             </div>
         </div>
-        <!-- DEVELOPER CREDIT END -->
-        
-    </div>
+        </div>
 
     <script>
-        // --- Shared Fee Logic (Used by both calculators) ---
+        // --- Shared Fee Logic (Used by Euro/Taka calculators) ---
         
-        // Define all fee tiers with their start boundary (inclusive), fee, and a name for display.
         const FEE_TIERS = [
             { start: 0, fee: 1.50, name: "1-1000 BDT" },
             { start: 1001, fee: 2.00, name: "1001-1500 BDT" },
@@ -276,14 +254,12 @@
 
         /**
          * Determines the fixed Euro fee based on the BDT value.
-         * NOTE: This original function is kept to support the Taka to Euro calculation.
-         * @param {number} bdtValue - The BDT amount used for tier checking (Gross for E->T, Input for T->E).
+         * @param {number} bdtValue - The BDT amount used for tier checking.
          * @returns {number} The fixed fee amount in Euro.
          */
         function getFixedEuroFeeByTaka(bdtValue) {
             if (isNaN(bdtValue) || bdtValue <= 0) return 0;
             
-            // Find the fee using the defined tiers
             let fee = 0;
             for (let i = FEE_TIERS.length - 1; i >= 0; i--) {
                 if (bdtValue >= FEE_TIERS[i].start) {
@@ -326,7 +302,6 @@
         // --- Calculator 1: Euro to Taka (E -> BDT) ---
 
         function calculateEuroToTaka() {
-            // Note: The input IDs remain the same, only their position in the HTML changed
             const euroAmount = parseFloat(document.getElementById('euroAmount').value) || 0;
             const exchangeRate = parseFloat(document.getElementById('exchangeRate').value) || 0;
 
@@ -349,24 +324,19 @@
 
             const grossTaka = euroAmount * exchangeRate; 
             
-            // Get current and previous fee details based on Gross Taka
             const feeDetails = getFeeDetails(grossTaka);
             const feeAmountEuro = feeDetails.currentFee;
             const netEuro = Math.max(0, euroAmount - feeAmountEuro);
             const finalTaka = netEuro * exchangeRate;
 
-            // --- ALTERNATIVE OUTPUT LOGIC (The user's requested second output) ---
+            // --- ALTERNATIVE OUTPUT LOGIC ---
             let isAlternativeOutputShown = false;
             const previousFee = feeDetails.previousFee;
 
-            // The alternative output is shown if there is a previous (lower) fee tier.
-            // This covers all user examples where the gross value crossed a tier boundary.
             if (previousFee !== null && feeAmountEuro > previousFee) {
-                // Calculate the alternative output using the previous (lower) fee
                 const alternativeNetEuro = Math.max(0, euroAmount - previousFee);
                 const alternativeFinalTaka = alternativeNetEuro * exchangeRate;
                 
-                // Update the UI for the alternative output
                 alternativeTakaOutputBox.classList.remove('hidden');
                 alternativeTakaLabel.textContent = `Alternative Output (Fee: ${previousFee.toFixed(2)}€, Tier: ${feeDetails.previousTierName})`;
                 alternativeTakaOutput.textContent = `${alternativeFinalTaka.toFixed(2)} BDT`;
@@ -414,12 +384,51 @@
             totalEurosOutput.textContent = `${totalEuros.toFixed(2)} €`;
         }
         
-        // --- Quick Select Function (NEW) ---
+        // --- Calculator 3: Capital Adjustment (BDT -> BDT) - Logic from SPECIFIC.html ---
+
         /**
-         * Sets the amount input field based on currency and triggers calculation.
-         * @param {number} amount - The amount to set.
-         * @param {'euro' | 'bdt'} currency - The currency type.
+         * Formats a number as BDT currency string, rounded to two decimal places.
          */
+        function formatBDT(amount) {
+            // Using Intl.NumberFormat for clean currency display
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'BDT',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount);
+        }
+
+        function calculateCapitalAdjustment() {
+            const capitalAmountInput = document.getElementById('capitalAmount');
+            const capitalAmount = parseFloat(capitalAmountInput.value) || 0;
+
+            const firstOutputElement = document.getElementById('firstOutput');
+            const finalOutputElement = document.getElementById('finalOutput');
+
+            if (capitalAmount <= 0) {
+                firstOutputElement.textContent = formatBDT(0);
+                finalOutputElement.textContent = formatBDT(0);
+                return;
+            }
+
+            // Case 2: Capital Amount - 2.439%
+            // Calculation: C * (1 - 0.02439) => C * 0.97561
+            const firstOutput = capitalAmount * 0.97561;
+
+            // Display First Output
+            firstOutputElement.textContent = formatBDT(firstOutput);
+
+            // Case 3: First Output + 2.5%
+            // Calculation: O1 * (1 + 0.025) => O1 * 1.025
+            const finalOutput = firstOutput * 1.025;
+            
+            // Display Final Output
+            finalOutputElement.textContent = formatBDT(finalOutput);
+        }
+
+
+        // --- Quick Select Function (Used by Euro/Taka tabs) ---
         function setAmount(amount, currency) {
             if (currency === 'euro') {
                 document.getElementById('euroAmount').value = amount;
@@ -428,18 +437,26 @@
                 document.getElementById('bdtToEuroAmount').value = amount;
                 calculateTakaToEuro();
             }
+            // Capital Adjustment does not use quick select buttons in the merged design.
         }
 
 
         // --- Clear Function (Updated to clear all values) ---
         function clearInputs() {
+            // Clear E/T inputs
             document.getElementById('euroAmount').value = '';
             document.getElementById('bdtToEuroAmount').value = '';
             document.getElementById('exchangeRate').value = ''; 
             document.getElementById('bdtToEuroRate').value = '';
+            // Clear Capital input
+            document.getElementById('capitalAmount').value = '';
+
+            // Recalculate to reset outputs for *all* tabs
             calculateEuroToTaka();
             calculateTakaToEuro();
+            calculateCapitalAdjustment();
             
+            // Focus on the first input of the active section
             const activeSection = document.querySelector('.calculator-section:not(.hidden)');
             if (activeSection) {
                 const firstInput = activeSection.querySelector('input[type="number"]');
@@ -450,12 +467,14 @@
         }
 
 
-        // --- UI/Event Handlers (Updated for Distinct and Darker Tab Backgrounds) ---
+        // --- UI/Event Handlers (Updated for 3 Tabs and new Indigo Theme) ---
 
+        // Get all input elements needed for event listeners
         const euroInput = document.getElementById('euroAmount');
         const rateInput = document.getElementById('exchangeRate');
         const bdtToEuroAmountInput = document.getElementById('bdtToEuroAmount');
         const bdtToEuroRateInput = document.getElementById('bdtToEuroRate');
+        const capitalAmountInput = document.getElementById('capitalAmount');
 
         function showSection(sectionId) {
             // Hide/Show Section
@@ -465,57 +484,56 @@
             document.getElementById(sectionId + 'Section').classList.remove('hidden');
 
             // --- Define all possible theme classes for cleanup ---
-            // Added 'emerald' colors and removed 'red' from the shared cleanup list
             const allColorClasses = [
                 // Theme Colors
                 'text-sky-700', 'border-sky-500', 'bg-sky-100', 'text-emerald-700', 'border-emerald-500', 'bg-emerald-100',
                 'bg-sky-600', 'bg-sky-700', 'bg-sky-400', 'bg-sky-50', 
                 'bg-emerald-600', 'bg-emerald-700', 'bg-emerald-400', 'bg-emerald-50', 
-                'bg-sky-300', 'bg-emerald-300',
-                'border-sky-400', 'focus:border-sky-600', 'focus:ring-sky-600', 'focus:border-sky-700', 'focus:ring-sky-700',
-                'border-emerald-400', 'focus:border-emerald-600', 'focus:ring-emerald-600', 'focus:border-emerald-700', 'focus:ring-emerald-700',
-                'border-sky-600', 'border-sky-700', 'text-sky-800', 'text-sky-900',
-                'border-emerald-600', 'border-emerald-700', 'text-emerald-800', 'text-emerald-900',
-                // Red classes for fee warnings (kept separate for logic below)
-                'bg-red-50', 'bg-red-100', 'border-red-400', 'focus:border-red-700', 'focus:ring-red-700', 'text-red-800', 'text-red-900',
-                // Yellow classes for alternative output
-                'bg-yellow-100', 'text-yellow-800', 'text-yellow-900',
-                // Generic classes used for state
+                'bg-indigo-600', 'bg-indigo-700', 'bg-indigo-400', 'bg-indigo-50', // NEW INDIGO
+                'bg-sky-300', 'bg-emerald-300', 'bg-indigo-300', // NEW INDIGO
+                'border-sky-400', 'focus:border-sky-700', 'focus:ring-sky-700',
+                'border-emerald-400', 'focus:border-emerald-700', 'focus:ring-emerald-700',
+                'border-indigo-400', 'focus:border-indigo-700', 'focus:ring-indigo-700', // NEW INDIGO
+                'border-sky-700', 'text-sky-800', 'text-sky-900',
+                'border-emerald-700', 'text-emerald-800', 'text-emerald-900',
+                'border-indigo-700', 'text-indigo-800', 'text-indigo-900', // NEW INDIGO
+                // Other utility classes
                 'text-white', 'font-bold', 'shadow-lg', 'text-gray-600', 'text-gray-800', 'border-transparent', 'shadow-md', 'hover-teal',
-                // Label-specific classes
-                'p-2', 'rounded-t-lg', 'text-sm', 'text-lg', 'text-xl', 'text-2xl', 'text-3xl', 'text-[32px]', 'text-center'
             ];
             
             // Define tab elements
             const tabEuro = document.getElementById('tab-euro-to-taka');
             const tabTaka = document.getElementById('tab-taka-to-euro');
+            const tabCapital = document.getElementById('tab-capital-adjustment'); // NEW
 
-            // --- 1. Reset both tabs to their *distinct* inactive styles ---
-
-            // Reset Euro Tab (Medium Sky Blue Inactive)
+            // --- 1. Reset all tabs to their *distinct* inactive styles ---
             tabEuro.classList.remove(...allColorClasses);
             tabEuro.classList.add('text-white', 'border-transparent', 'bg-sky-400', 'hover-teal'); 
 
-            // Reset Taka Tab (Medium Emerald Inactive)
             tabTaka.classList.remove(...allColorClasses);
             tabTaka.classList.add('text-white', 'border-transparent', 'bg-emerald-400', 'hover-teal'); 
+            
+            // NEW: Reset Capital Tab (Medium Indigo Inactive)
+            tabCapital.classList.remove(...allColorClasses);
+            tabCapital.classList.add('text-white', 'border-transparent', 'bg-indigo-400', 'hover-teal'); 
 
             
             // --- 2. Update H1 color and clean up input borders ---
             const h1 = document.querySelector('h1');
             h1.classList.remove(...allColorClasses); 
             
-            // Select output boxes for color update
-            const finalTakaOutputBox = document.querySelector('#euroToTakaSection .border-l-4');
-            const totalEurosOutputBox = document.querySelector('#takaToEuroSection .border-l-4');
-
-            // Clean up all non-fee related input borders
-            const inputElements = [euroInput, rateInput, bdtToEuroAmountInput, bdtToEuroRateInput];
+            // Clean up all input borders
+            const inputElements = [euroInput, rateInput, bdtToEuroAmountInput, bdtToEuroRateInput, capitalAmountInput];
             inputElements.forEach(input => input.classList.remove(...allColorClasses.filter(c => c.startsWith('border-') || c.startsWith('focus:'))));
             
-            // Clean up previous output box styling
-            const outputBoxes = [finalTakaOutputBox, totalEurosOutputBox];
+            // Clean up previous output box styling (need to re-select all relevant boxes)
+            const finalTakaOutputBox = document.querySelector('#euroToTakaSection .border-l-4');
+            const totalEurosOutputBox = document.querySelector('#takaToEuroSection .border-l-4');
+            const finalCapitalOutputBox = document.querySelector('#capitalAdjustmentSection .border-l-4'); // NEW
+
+            const outputBoxes = [finalTakaOutputBox, totalEurosOutputBox, finalCapitalOutputBox];
             outputBoxes.forEach(box => {
+                // Remove all color classes from the output box and its children
                 box.classList.remove(...allColorClasses);
                 const spans = box.querySelectorAll('span');
                 spans.forEach(span => span.classList.remove(...allColorClasses));
@@ -527,9 +545,9 @@
             
             if (sectionId === 'euroToTaka') {
                 // Activate Euro tab (Dark Blue: bg-sky-700)
-                activeTab.classList.remove('text-white', 'bg-sky-400'); // Remove inactive styles
+                activeTab.classList.remove('text-white', 'bg-sky-400');
                 activeTab.classList.add('text-white', 'border-sky-700', 'bg-sky-700', 'font-bold', 'shadow-lg');
-                h1.classList.add('text-sky-700', 'text-center'); // Added text-center here
+                h1.classList.add('text-sky-700', 'text-center');
                 
                 // Set E->T input and output colors (Sky Blue)
                 euroInput.classList.add('border-sky-400', 'focus:border-sky-700', 'focus:ring-sky-700');
@@ -540,14 +558,13 @@
                 finalTakaOutputBox.querySelector('span:first-child').classList.add('text-lg', 'font-bold', 'text-sky-800');
                 finalTakaOutputBox.querySelector('span:last-child').classList.add('text-2xl', 'font-extrabold', 'text-sky-900');
 
-                // Recalculate upon section change
                 calculateEuroToTaka();
 
             } else if (sectionId === 'takaToEuro') {
                 // Activate Taka tab (Dark Emerald: bg-emerald-700)
-                activeTab.classList.remove('text-white', 'bg-emerald-400'); // Remove inactive styles
+                activeTab.classList.remove('text-white', 'bg-emerald-400');
                 activeTab.classList.add('text-white', 'border-emerald-700', 'bg-emerald-700', 'font-bold', 'shadow-lg');
-                h1.classList.add('text-emerald-700', 'text-center'); // Added text-center here
+                h1.classList.add('text-emerald-700', 'text-center');
                 
                 // Set T->E input and output colors (Emerald Green)
                 bdtToEuroRateInput.classList.add('border-emerald-400', 'focus:border-emerald-700', 'focus:ring-emerald-700');
@@ -558,29 +575,50 @@
                 totalEurosOutputBox.querySelector('span:first-child').classList.add('text-lg', 'font-bold', 'text-emerald-800');
                 totalEurosOutputBox.querySelector('span:last-child').classList.add('text-2xl', 'font-extrabold', 'text-emerald-900');
                 
-                // Also update the BDT 2% charge box to the emerald theme
+                // Also update the BDT 2% charge box to the emerald theme (as it was hardcoded to red-100 in the original, this makes it consistent)
                 const bdtWithPercentOutputBox = document.querySelector('#takaToEuroSection > .mt-8 > div:nth-child(1)');
-                bdtWithPercentOutputBox.classList.remove('bg-red-100'); // Ensure we remove any previous red setting
                 bdtWithPercentOutputBox.classList.add('bg-emerald-100');
-                bdtWithPercentOutputBox.querySelector('span:first-child').classList.remove('text-red-800');
                 bdtWithPercentOutputBox.querySelector('span:first-child').classList.add('text-emerald-800');
-                bdtWithPercentOutputBox.querySelector('span:last-child').classList.remove('text-red-900');
                 bdtWithPercentOutputBox.querySelector('span:last-child').classList.add('text-emerald-900');
 
 
-                // Recalculate upon section change
                 calculateTakaToEuro();
+            } else if (sectionId === 'capitalAdjustment') {
+                // NEW: Activate Capital tab (Dark Indigo: bg-indigo-700)
+                activeTab.classList.remove('text-white', 'bg-indigo-400');
+                activeTab.classList.add('text-white', 'border-indigo-700', 'bg-indigo-700', 'font-bold', 'shadow-lg');
+                h1.classList.add('text-indigo-700', 'text-center');
+
+                // Set Capital input and output colors (Indigo)
+                capitalAmountInput.classList.add('border-indigo-400', 'focus:border-indigo-700', 'focus:ring-indigo-700');
+
+                // Set Capital final output box to Indigo theme
+                finalCapitalOutputBox.classList.add('bg-indigo-100', 'border-l-4', 'border-indigo-700');
+                finalCapitalOutputBox.querySelector('span:first-child').classList.add('text-lg', 'font-bold', 'text-indigo-800');
+                finalCapitalOutputBox.querySelector('span:last-child').classList.add('text-2xl', 'font-extrabold', 'text-indigo-900');
+
+                // Also update the first output box to the indigo theme
+                const firstOutputBox = document.querySelector('#capitalAdjustmentSection > .mt-8 > div:nth-child(1)');
+                firstOutputBox.classList.remove('bg-gray-50'); // Remove default gray
+                firstOutputBox.classList.add('bg-indigo-100');
+                firstOutputBox.querySelector('span:first-child').classList.remove('text-gray-600');
+                firstOutputBox.querySelector('span:first-child').classList.add('text-indigo-800');
+                firstOutputBox.querySelector('span:last-child').classList.remove('text-green-700'); // Remove green from original
+                firstOutputBox.querySelector('span:last-child').classList.add('text-indigo-900');
+
+                calculateCapitalAdjustment();
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Attach listeners
+            // Attach listeners for all inputs
             euroInput.addEventListener('input', calculateEuroToTaka);
             rateInput.addEventListener('input', calculateEuroToTaka);
             bdtToEuroAmountInput.addEventListener('input', calculateTakaToEuro);
             bdtToEuroRateInput.addEventListener('input', calculateTakaToEuro);
+            capitalAmountInput.addEventListener('input', calculateCapitalAdjustment);
 
-            // Ensure initial state is calculated (will be 0.00 since fields are empty)
+            // Set initial state
             showSection('euroToTaka');
         });
     </script>
