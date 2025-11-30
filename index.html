@@ -55,6 +55,7 @@
                         'indigo-600': '#4f46e5',
                         'pink-500': '#ec4899',
                         'pink-600': '#db2777',
+                        'purple-700': '#6d28d9', // New color for the incentive tab
                     },
                 },
             },
@@ -233,6 +234,11 @@
                             onclick="showSection('capitalAdjustment')">
                         Capital Adj.
                     </button>
+                    <button id="tab-bdt-incentive" 
+                            class="tab-button-inner flex-1 py-3 text-center rounded-t-lg transition duration-200 ease-in-out" 
+                            onclick="showSection('bdtIncentive')">
+                        BDT Incentive
+                    </button>
                     </div>
 
                 <div id="euroToTakaSection" class="calculator-section">
@@ -367,8 +373,8 @@
                 </div>
                 
                 <div id="capitalAdjustmentSection" class="calculator-section hidden">
-                     <h3 class="text-xl font-bold text-gray-700 mb-4">Capital Adjustment Calculation</h3>
-                    <p class="text-gray-500 mb-6 border-b pb-4">Calculates adjustments based on a starting Capital Amount in BDT (2.439% deduction, followed by 2.5% addition).</p>
+                     <h3 class="text-xl font-bold text-gray-700 mb-4">Capital Adjustment (Two-Step Process)</h3>
+                    <p class="text-gray-500 mb-6 border-b pb-4">Calculates adjustments based on a starting Capital Amount in BDT (Step 1: 2.439% deduction, Step 2: 2.5% addition).</p>
 
                     <div class="space-y-6">
                          <div class="input-group">
@@ -396,6 +402,44 @@
                         <div class="flex justify-between items-center p-4 bg-indigo-100 border-l-4 border-indigo-700 rounded-lg">
                             <span class="text-lg font-bold text-indigo-800">Final Input Value (First Output + 2.5%)</span>
                             <span id="finalOutput" class="text-2xl font-extrabold text-indigo-900">0.00 BDT</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="bdtIncentiveSection" class="calculator-section hidden">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">BDT Incentive (Add 2.5%)</h3>
+                    <p class="text-gray-500 mb-6 border-b pb-4">Calculates your total capital after adding a straight 2.5% incentive.</p>
+                    
+                    <div class="space-y-6">
+                         <div class="input-group">
+                            <label for="bdtIncentiveCapital" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-purple-50">1. Enter Capital Amount (BDT)</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">BDT</span>
+                                </div>
+                                <input type="number" id="bdtIncentiveCapital" min="0" step="0.01"
+                                       class="block w-full rounded-lg border-2 border-purple-400 focus:border-purple-700 focus:ring-purple-700 p-3 sm:text-sm transition duration-150"
+                                       placeholder="000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="clearInputsMobile()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-150 shadow-md mt-6">
+                        Clear All Data
+                    </button>
+
+                    <div class="mt-8 pt-6 border-t border-purple-200 space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-purple-100 rounded-lg">
+                            <span class="text-lg font-medium text-purple-800">Input Capital</span>
+                            <span id="bdtIncentiveCapitalOut" class="text-lg font-semibold text-purple-900">0.00 BDT</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-purple-100 rounded-lg">
+                            <span class="text-lg font-medium text-purple-800">Incentive Added (2.5%)</span>
+                            <span id="bdtIncentiveOut" class="text-lg font-semibold text-purple-900">0.00 BDT</span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-purple-100 border-l-4 border-purple-700 rounded-lg">
+                            <span class="text-lg font-bold text-purple-800">Total After Incentive</span>
+                            <span id="bdtIncentiveTotalOut" class="text-2xl font-extrabold text-purple-900">0.00 BDT</span>
                         </div>
                     </div>
                 </div>
@@ -754,6 +798,31 @@
             finalOutputElement.textContent = formatBDT(finalOutput);
         }
 
+        // NEW FUNCTION: BDT Incentive Calculator (2.5% add)
+        function calculateBdtIncentive() {
+            const capitalAmountInput = document.getElementById('bdtIncentiveCapital');
+            const val = parseFloat(capitalAmountInput.value) || 0;
+
+            const capitalOutEl = document.getElementById('bdtIncentiveCapitalOut');
+            const incentiveOutEl = document.getElementById('bdtIncentiveOut');
+            const totalOutEl = document.getElementById('bdtIncentiveTotalOut');
+
+            if (val <= 0) {
+                capitalOutEl.textContent = formatBDT(0);
+                incentiveOutEl.textContent = formatBDT(0);
+                totalOutEl.textContent = formatBDT(0);
+                return;
+            }
+
+            const rate = 0.025;
+            const incentive = val * rate;
+            const total = val + incentive;
+
+            capitalOutEl.textContent = formatBDT(val);
+            incentiveOutEl.textContent = formatBDT(incentive);
+            totalOutEl.textContent = formatBDT(total);
+        }
+
 
         function setAmount(amount, currency) {
             if (currency === 'euro') {
@@ -771,14 +840,16 @@
             document.getElementById('bdtToEuroAmount').value = '';
             document.getElementById('exchangeRate').value = ''; 
             document.getElementById('bdtToEuroRate').value = '';
-            // Clear Capital input
+            // Clear Capital inputs
             document.getElementById('capitalAmount').value = '';
+            document.getElementById('bdtIncentiveCapital').value = '';
 
             // Recalculate to reset outputs for *all* tabs
             calculateEuroToTaka();
             calculateTakaToEuro();
             calculateCapitalAdjustment();
-            
+            calculateBdtIncentive(); // New
+
             // Focus on the first input of the active section
             const activeSection = document.querySelector('#main-calc-mobile .calculator-section:not(.hidden)');
             if (activeSection) {
@@ -794,6 +865,7 @@
         const bdtToEuroAmountInput = document.getElementById('bdtToEuroAmount');
         const bdtToEuroRateInput = document.getElementById('bdtToEuroRate');
         const capitalAmountInput = document.getElementById('capitalAmount');
+        const bdtIncentiveCapitalInput = document.getElementById('bdtIncentiveCapital'); // New Input
 
         function showSection(sectionId) {
             // Hide/Show Section
@@ -807,13 +879,16 @@
                 'bg-sky-600', 'bg-sky-700', 'bg-sky-400', 'bg-sky-50', 
                 'bg-emerald-600', 'bg-emerald-700', 'bg-emerald-400', 'bg-emerald-50', 
                 'bg-indigo-600', 'bg-indigo-700', 'bg-indigo-400', 'bg-indigo-50',
-                'bg-sky-300', 'bg-emerald-300', 'bg-indigo-300',
+                'bg-purple-600', 'bg-purple-700', 'bg-purple-400', 'bg-purple-50', // New Purple
+                'bg-sky-300', 'bg-emerald-300', 'bg-indigo-300', 'bg-purple-300', // New Purple
                 'border-sky-400', 'focus:border-sky-700', 'focus:ring-sky-700',
                 'border-emerald-400', 'focus:border-emerald-700', 'focus:ring-emerald-700',
                 'border-indigo-400', 'focus:border-indigo-700', 'focus:ring-indigo-700',
+                'border-purple-400', 'focus:border-purple-700', 'focus:ring-purple-700', // New Purple
                 'border-sky-700', 'text-sky-800', 'text-sky-900',
                 'border-emerald-700', 'text-emerald-800', 'text-emerald-900',
                 'border-indigo-700', 'text-indigo-800', 'text-indigo-900',
+                'border-purple-700', 'text-purple-800', 'text-purple-900', // New Purple
                 'text-white', 'font-bold', 'shadow-lg', 'text-gray-600', 'text-gray-800', 'border-transparent', 'shadow-md', 'hover-teal',
                 'bg-red-100', 'text-red-800', 'text-red-900',
             ];
@@ -821,6 +896,7 @@
             const tabEuro = document.getElementById('tab-euro-to-taka');
             const tabTaka = document.getElementById('tab-taka-to-euro');
             const tabCapital = document.getElementById('tab-capital-adjustment');
+            const tabBdtIncentive = document.getElementById('tab-bdt-incentive'); // New Tab
 
             // 1. Reset all tabs
             tabEuro.classList.remove(...allColorClasses);
@@ -831,20 +907,24 @@
             
             tabCapital.classList.remove(...allColorClasses);
             tabCapital.classList.add('text-white', 'border-transparent', 'bg-indigo-400', 'hover-teal'); 
+            
+            tabBdtIncentive.classList.remove(...allColorClasses); // New Tab Reset
+            tabBdtIncentive.classList.add('text-white', 'border-transparent', 'bg-purple-400', 'hover-teal'); 
 
             
             // 2. Update H2 color and clean up input borders
             const h2 = document.querySelector('#main-calc-mobile h2');
             h2.classList.remove(...allColorClasses); 
             
-            const inputElements = [euroInput, rateInput, bdtToEuroAmountInput, bdtToEuroRateInput, capitalAmountInput];
+            const inputElements = [euroInput, rateInput, bdtToEuroAmountInput, bdtToEuroRateInput, capitalAmountInput, bdtIncentiveCapitalInput]; // New Input
             inputElements.forEach(input => input.classList.remove(...allColorClasses.filter(c => c.startsWith('border-') || c.startsWith('focus:'))));
             
             const finalTakaOutputBox = document.querySelector('#euroToTakaSection .border-l-4');
             const totalEurosOutputBox = document.querySelector('#takaToEuroSection .border-l-4');
             const finalCapitalOutputBox = document.querySelector('#capitalAdjustmentSection .border-l-4');
+            const finalBdtIncentiveOutputBox = document.querySelector('#bdtIncentiveSection .border-l-4'); // New Output Box
 
-            const outputBoxes = [finalTakaOutputBox, totalEurosOutputBox, finalCapitalOutputBox];
+            const outputBoxes = [finalTakaOutputBox, totalEurosOutputBox, finalCapitalOutputBox, finalBdtIncentiveOutputBox]; // New Output Box
             outputBoxes.forEach(box => {
                 if (box) {
                     box.classList.remove(...allColorClasses);
@@ -923,6 +1003,29 @@
                 }
 
                 calculateCapitalAdjustment();
+            } else if (sectionId === 'bdtIncentive') {
+                activeTab.classList.remove('text-white', 'bg-purple-400');
+                activeTab.classList.add('text-white', 'border-purple-700', 'bg-purple-700', 'font-bold', 'shadow-lg');
+                h2.classList.add('text-purple-700', 'text-center');
+
+                bdtIncentiveCapitalInput.classList.add('border-purple-400', 'focus:border-purple-700', 'focus:ring-purple-700');
+
+                if(finalBdtIncentiveOutputBox) {
+                    finalBdtIncentiveOutputBox.classList.add('bg-purple-100', 'border-l-4', 'border-purple-700');
+                    finalBdtIncentiveOutputBox.querySelector('span:first-child').classList.add('text-lg', 'font-bold', 'text-purple-800');
+                    finalBdtIncentiveOutputBox.querySelector('span:last-child').classList.add('text-2xl', 'font-extrabold', 'text-purple-900');
+                }
+                
+                document.querySelectorAll('#bdtIncentiveSection > .mt-8 > div:not(:last-child)').forEach(box => {
+                    box.classList.remove('bg-indigo-100');
+                    box.classList.add('bg-purple-100');
+                    box.querySelector('span:first-child').classList.remove('text-indigo-800');
+                    box.querySelector('span:first-child').classList.add('text-purple-800');
+                    box.querySelector('span:last-child').classList.remove('text-indigo-900');
+                    box.querySelector('span:last-child').classList.add('text-purple-900');
+                });
+                
+                calculateBdtIncentive();
             }
         }
 
@@ -933,6 +1036,7 @@
             bdtToEuroAmountInput.addEventListener('input', calculateTakaToEuro);
             bdtToEuroRateInput.addEventListener('input', calculateTakaToEuro);
             capitalAmountInput.addEventListener('input', calculateCapitalAdjustment);
+            bdtIncentiveCapitalInput.addEventListener('input', calculateBdtIncentive); // New Listener
 
             // Initial setup - Start with the Currency Exchange Calculator active
             switchMainCalculator('exchange');
