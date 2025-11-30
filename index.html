@@ -16,16 +16,7 @@
         .card {
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .input-group input {
-            padding-left: 3rem !important; 
-        }
-        .tab-button-inner {
-            border-bottom-width: 4px; 
-            margin-bottom: -2px; 
-            z-index: 10;
-            cursor: pointer;
-            border-color: transparent; 
-        }
+        /* The custom padding-left rule was removed here to eliminate the overlapping currency symbols */
         .tab-divider-inner {
             border-bottom: 2px solid #9ca3af; 
         }
@@ -68,386 +59,384 @@
         <h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Combined Financial Calculators</h1>
 
         <div class="flex border-b border-gray-300 mb-8">
-            <button id="main-tab-exchange" 
-                    class="main-tab flex-1 py-3 text-center text-lg font-semibold text-gray-500 active" 
-                    data-target="exchange">
-                Currency Exchange Calculator
-            </button>
             <button id="main-tab-mobile" 
-                    class="main-tab flex-1 py-3 text-center text-lg font-semibold text-gray-500" 
+                    class="main-tab flex-1 py-3 text-center text-lg font-semibold text-gray-500 active" 
                     data-target="mobile">
-                Mobile Money and Capital Calculator
+                Mobile Money Calculator
+            </button>
+            <button id="main-tab-exchange" 
+                    class="main-tab flex-1 py-3 text-center text-lg font-semibold text-gray-500" 
+                    data-target="exchange">
+                Currency & Capital Calculators
             </button>
         </div>
         
-        <div id="main-calc-exchange" class="main-calc-section">
-            <div class="max-w-lg w-full mx-auto exchange-bg rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-indigo-600 to-pink-500 p-6">
-                    <h2 class="text-2xl font-bold text-white mb-2">Currency Exchange</h2>
-                    <div class="flex border-b border-indigo-500/50">
-                        <button id="EX_tab-forward" class="EX_tab-button flex-1 text-center py-2 text-sm font-semibold transition-colors duration-200" data-target="forward-calc">
-                            💰 Euros to BDT
+        <div id="main-calc-mobile" class="main-calc-section">
+            <div class="w-full max-w-lg card bg-white rounded-2xl p-0 md:p-0 mx-auto overflow-hidden">
+                <div class="bg-gradient-to-r from-sky-600 to-emerald-500 p-6">
+                    <h2 class="text-2xl font-bold text-white mb-4">Mobile Money Calculator</h2>
+                    
+                    <div class="flex border-b border-sky-500/50">
+                        <button id="tab-euro-to-taka" 
+                                class="MM_tab-button flex-1 text-center py-3 px-4 rounded-t-lg text-lg font-semibold transition-colors duration-200" 
+                                data-target="euroToTaka">
+                            Euro to Taka
                         </button>
-                        <button id="EX_tab-reverse" class="EX_tab-button flex-1 text-center py-2 text-sm font-semibold transition-colors duration-200" data-target="reverse-calc">
-                            🔄 BDT to Euros
+                        <button id="tab-taka-to-euro" 
+                                class="MM_tab-button flex-1 text-center py-3 px-4 rounded-t-lg text-lg font-semibold transition-colors duration-200" 
+                                data-target="takaToEuro">
+                            Taka to Euro
                         </button>
                     </div>
                 </div>
 
-                <div class="p-6 space-y-6">
-                    <div>
-                        <span class="block text-sm font-semibold text-gray-700 mb-2">Charge (€)</span>
-                        <div class="space-y-3">
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="radio" name="EX_chargeOption" value="0" class="EX_charge-radio text-pink-500 focus:ring-pink-500" checked />
-                                <span class="text-gray-800">No charge (€0)</span>
-                            </label>
-                            <div class="flex items-center gap-2">
-                                <input type="radio" name="EX_chargeOption" value="custom" class="EX_charge-radio text-pink-500 focus:ring-pink-500" id="EX_chargeCustomRadio" />
-                                <label for="EX_chargeCustom" class="text-gray-800">Custom (€)</label>
-                                <input
-                                    id="EX_chargeCustom"
-                                    type="number"
-                                    step="0.01"
-                                    placeholder="Enter charge"
-                                    class="EX_charge-input ml-2 w-32 rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
-                                />
+                <div class="p-6 md:p-8 space-y-8">
+                    <div id="euroToTakaSection" class="calculator-section space-y-6">
+                        <h3 class="text-2xl font-bold text-gray-700 border-b pb-2">Euro to Taka Calculation</h3>
+                        <div class="input-wrapper p-6 bg-gray-50 rounded-xl shadow-inner space-y-6">
+                            <div class="input-group">
+                                <label for="exchangeRate" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-sky-50">1. Exchange Rate (BDT per €)</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input type="number" id="exchangeRate" min="0" step="0.01"
+                                           class="MM_input-field block w-full rounded-lg border-2 border-sky-400 focus:border-sky-700 focus:ring-sky-700 p-3 sm:text-sm transition duration-150"
+                                           placeholder="000.00 BDT">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="euroAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-sky-50">2. Enter Amount in Euro (€)</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input type="number" id="euroAmount" min="0" step="0.01"
+                                           class="MM_input-field block w-full rounded-lg border-2 border-sky-400 focus:border-sky-700 focus:ring-sky-700 p-3 sm:text-sm transition duration-150"
+                                           placeholder="000.00 €">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full">
+                            <p class="text-base font-semibold text-gray-700 mb-3">Quick Select (€):</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="setAmount(10, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€10</button>
+                                <button onclick="setAmount(15, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€15</button>
+                                <button onclick="setAmount(20, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€20</button>
+                                <button onclick="setAmount(25, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€25</button>
+                                <button onclick="setAmount(30, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€30</button>
+                                <button onclick="setAmount(35, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€35</button>
+                                <button onclick="setAmount(40, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€40</button>
+                                <button onclick="setAmount(50, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€50</button>
+                                <button onclick="setAmount(100, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€100</button>
+                                <button onclick="setAmount(150, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€150</button>
+                                <button onclick="setAmount(200, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€200</button>
+                                <button onclick="setAmount(250, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€250</button>
+                                <button onclick="setAmount(299, 'euro')" class="text-sm px-4 py-2 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300 shadow-sm">€299</button>
+                            </div>
+                        </div>
+                        <button onclick="clearInputsMobile()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition duration-150 shadow-md">
+                            Clear All Data
+                        </button>
+
+                        <div class="mt-8 pt-6 border-t border-sky-200 space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-sky-100 rounded-lg">
+                                <span class="text-lg font-medium text-sky-800">Gross Value (Fee Tier Check)</span>
+                                <span id="grossTakaOutput" class="text-lg font-semibold text-sky-900">0.00 BDT</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-red-100 rounded-lg">
+                                <span class="text-lg font-medium text-red-800 font-semibold">Fixed Charge Deducted (EURO)</span>
+                                <span id="feeAmountEuroOutput" class="text-lg font-extrabold text-red-900">0.00 €</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-sky-100 border-l-4 border-sky-700 rounded-lg">
+                                <span class="text-xl font-bold text-sky-800">Final BDT Output</span>
+                                <span id="finalTakaOutput" class="text-3xl font-extrabold text-sky-900">0.00 BDT</span>
+                            </div>
+
+                            <div id="alternativeTakaOutputBox" class="flex justify-between items-center p-3 bg-yellow-100 rounded-lg hidden transition duration-300 ease-in-out">
+                                <span id="alternativeTakaLabel" class="text-lg font-medium text-yellow-800">Alternative Output (Lower Fee Tier)</span>
+                                <span id="alternativeTakaOutput" class="text-lg font-semibold text-yellow-900">0.00 BDT</span>
                             </div>
                         </div>
                     </div>
 
-                    <div id="forward-calc" class="EX_calc-section space-y-6">
-                        <p class="text-sm text-gray-500">Formula: (Euros - Charge) × BDT Rate</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="EX_euros" class="block text-sm font-semibold text-gray-700">Euros (€)</label>
-                                <input
-                                    id="EX_euros"
-                                    type="number"
-                                    step="0.01"
-                                    placeholder="Enter amount"
-                                    class="EX_input-field mt-2 w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
-                                />
+                    <div id="takaToEuroSection" class="calculator-section space-y-6 hidden">
+                        <h3 class="text-2xl font-bold text-gray-700 border-b pb-2">Taka to Euro Calculation</h3>
+                        <div class="input-wrapper p-6 bg-gray-50 rounded-xl shadow-inner space-y-6">
+                            <div class="input-group">
+                                <label for="bdtToEuroRate" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-emerald-50">1. Exchange Rate (BDT per €)</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input type="number" id="bdtToEuroRate" min="0" step="0.01"
+                                           class="MM_input-field block w-full rounded-lg border-2 border-emerald-400 focus:border-emerald-700 focus:ring-emerald-700 p-3 sm:text-sm transition duration-150"
+                                           placeholder="000.00 BDT">
+                                </div>
                             </div>
-                            <div>
-                                <label for="EX_bdtRate" class="block text-sm font-semibold text-gray-700">BDT Rate</label>
-                                <input
-                                    id="EX_bdtRate"
-                                    type="number"
-                                    step="0.0001"
-                                    placeholder="Rate per €"
-                                    class="EX_input-field mt-2 w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
-                                />
-                            </div>
-                        </div>
-                        <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 space-y-2">
-                            <div class="flex justify-between text-sm text-gray-700">
-                                <span>Selected charge</span>
-                                <span id="EX_chargeDisplayForward" class="font-medium">€0.00</span>
-                            </div>
-                            <div class="flex justify-between text-sm text-gray-700">
-                                <span>Net euros (Euros − charge)</span>
-                                <span id="EX_netEurosDisplayForward" class="font-medium">€0.00</span>
-                            </div>
-                            <div class="flex justify-between items-center mt-3">
-                                <span class="text-sm font-semibold text-indigo-900">Output (BDT)</span>
-                                <span id="EX_outputBDT" class="text-xl font-bold text-pink-600">0.00</span>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div id="reverse-calc" class="EX_calc-section space-y-6 hidden">
-                        <p class="text-sm text-gray-500">Formula: (BDT ÷ Rate in Euros) + Charge</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="EX_bdtAmount" class="block text-sm font-semibold text-gray-700">BDT Amount</label>
-                                <input
-                                    id="EX_bdtAmount"
-                                    type="number"
-                                    step="0.01"
-                                    placeholder="Enter BDT"
-                                    class="EX_input-field mt-2 w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
-                                />
-                            </div>
-                            <div>
-                                <label for="EX_rateEuro" class="block text-sm font-semibold text-gray-700">Rate in Euros</label>
-                                <input
-                                    id="EX_rateEuro"
-                                    type="number"
-                                    step="0.0001"
-                                    placeholder="Enter rate"
-                                    class="EX_input-field mt-2 w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
-                                />
+                            <div class="input-group">
+                                <label for="bdtToEuroAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-emerald-50">2. Enter Amount in Taka (BDT)</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input type="number" id="bdtToEuroAmount" min="0" step="0.01"
+                                           class="MM_input-field block w-full rounded-lg border-2 border-emerald-400 focus:border-emerald-700 focus:ring-emerald-700 p-3 sm:text-sm transition duration-150"
+                                           placeholder="000.00 BDT">
+                                </div>
                             </div>
                         </div>
-                        <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 space-y-2">
-                            <div class="flex justify-between text-sm text-gray-700">
-                                <span>Selected charge</span>
-                                <span id="EX_chargeDisplayReverse" class="font-medium">€0.00</span>
-                            </div>
-                            <div class="flex justify-between text-sm text-gray-700">
-                                <span>BDT ÷ Rate in Euros</span>
-                                <span id="EX_divisionDisplay" class="font-medium">0.00</span>
-                            </div>
-                            <div class="flex justify-between items-center mt-3">
-                                <span class="text-sm font-semibold text-indigo-900">Final Result (€)</span>
-                                <span id="EX_outputResult" class="text-xl font-bold text-pink-600">0.00</span>
+
+                        <div class="w-full">
+                            <p class="text-base font-semibold text-gray-700 mb-3">Quick Select (BDT):</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="setAmount(1000, 'bdt')" class="text-sm px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300 shadow-sm">1000 BDT</button>
+                                <button onclick="setAmount(5000, 'bdt')" class="text-sm px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300 shadow-sm">5000 BDT</button>
+                                <button onclick="setAmount(10000, 'bdt')" class="text-sm px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300 shadow-sm">10000 BDT</button>
+                                <button onclick="setAmount(15000, 'bdt')" class="text-sm px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300 shadow-sm">15000 BDT</button>
+                                <button onclick="setAmount(20000, 'bdt')" class="text-sm px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300 shadow-sm">20000 BDT</button>
+                                <button onclick="setAmount(50000, 'bdt')" class="text-sm px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300 shadow-sm">50000 BDT</button>
                             </div>
                         </div>
-                    </div>
                     
-                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
-                        <button
-                            id="EX_calcBtn"
-                            class="flex-1 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-500 px-4 py-2 text-white font-semibold shadow hover:opacity-90 transition"
-                        >
-                            Calculate
+                        <button onclick="clearInputsMobile()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition duration-150 shadow-md">
+                            Clear All Data
                         </button>
-                        <button
-                            id="EX_resetBtn"
-                            class="flex-1 rounded-lg bg-gray-100 px-4 py-2 text-gray-800 font-semibold shadow hover:bg-gray-200 transition"
-                        >
-                            Reset
-                        </button>
+
+                        <div class="mt-8 pt-6 border-t border-emerald-200 space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-emerald-100 rounded-lg">
+                                <span class="text-lg font-medium text-emerald-800">BDT Amount with 2% Charge</span>
+                                <span id="bdtWithPercentOutput" class="text-lg font-semibold text-emerald-900">0.00 BDT</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-red-100 rounded-lg">
+                                <span class="text-lg font-medium text-red-800 font-semibold">Fixed Charge Added (EURO)</span>
+                                <span id="fixedEuroChargeBdtToEuroOutput" class="text-lg font-extrabold text-red-900">0.00 €</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-emerald-100 border-l-4 border-emerald-700 rounded-lg">
+                                <span class="text-xl font-bold text-emerald-800">Total Euro Required</span>
+                                <span id="totalEurosOutput" class="text-3xl font-extrabold text-emerald-900">0.00 €</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="mt-8 pt-4 border-t border-gray-200 text-center text-sm text-gray-500">
+                        Developed by: Syed Nadir Ahmed
+                        <div class="flex justify-center space-x-4 mt-1">
+                            <a href="https://github.com/SyedNadirAhmed" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-150">GitHub</a>
+                            <a href="https://bd.linkedin.com/in/syed-nadir-ahmed-20156213a" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-150">LinkedIn</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="main-calc-mobile" class="main-calc-section hidden">
-            <div class="w-full max-w-lg card bg-white rounded-xl p-6 md:p-10 mx-auto">
-                <h2 class="text-3xl font-extrabold text-sky-700 mb-6 text-center">MOBILE MONEY AND CAPITAL CALCULATOR</h2>
-                
-                <div class="flex tab-divider-inner mb-8">
-                    <button id="tab-euro-to-taka" 
-                            class="tab-button-inner flex-1 py-3 text-center rounded-t-lg transition duration-200 ease-in-out" 
-                            onclick="showSection('euroToTaka')">
-                        Euro to Taka
-                    </button>
-                    <button id="tab-taka-to-euro" 
-                            class="tab-button-inner flex-1 py-3 text-center rounded-t-lg transition duration-200 ease-in-out" 
-                            onclick="showSection('takaToEuro')">
-                        Taka to Euro
-                    </button>
-                    <button id="tab-capital-adjustment" 
-                            class="tab-button-inner flex-1 py-3 text-center rounded-t-lg transition duration-200 ease-in-out" 
-                            onclick="showSection('capitalAdjustment')">
-                        Capital Adj.
-                    </button>
-                    <button id="tab-bdt-incentive" 
-                            class="tab-button-inner flex-1 py-3 text-center rounded-t-lg transition duration-200 ease-in-out" 
-                            onclick="showSection('bdtIncentive')">
-                        BDT Incentive
-                    </button>
-                    </div>
-
-                <div id="euroToTakaSection" class="calculator-section">
-                    <h3 class="text-xl font-bold text-gray-700 mb-4">Euro to Taka Calculation</h3>
-                    <div class="space-y-6">
-                        <div class="input-group">
-                            <label for="exchangeRate" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-sky-50">1. Exchange Rate (BDT per €)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">BDT</span>
-                                </div>
-                                <input type="number" id="exchangeRate" min="0" step="0.01"
-                                       class="block w-full rounded-lg border-2 border-sky-400 focus:border-sky-700 focus:ring-sky-700 p-3 sm:text-sm transition duration-150"
-                                       placeholder="000">
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="euroAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-sky-50">2. Enter Amount in Euro (€)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">€</span>
-                                </div>
-                                <input type="number" id="euroAmount" min="0" step="0.01"
-                                       class="block w-full rounded-lg border-2 border-sky-400 focus:border-sky-700 focus:ring-sky-700 p-3 sm:text-sm transition duration-150"
-                                       placeholder="000">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w-full mt-6">
-                        <p class="text-sm font-medium text-gray-500 mb-2">Quick Select (€):</p>
-                        <div class="flex flex-wrap gap-2">
-                            <button onclick="setAmount(10, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€10</button>
-                            <button onclick="setAmount(15, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€15</button>
-                            <button onclick="setAmount(20, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€20</button>
-                            <button onclick="setAmount(25, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€25</button>
-                            <button onclick="setAmount(30, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€30</button>
-                            <button onclick="setAmount(35, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€35</button>
-                            <button onclick="setAmount(40, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€40</button>
-                            <button onclick="setAmount(50, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€50</button>
-                            <button onclick="setAmount(100, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€100</button>
-                            <button onclick="setAmount(150, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€150</button>
-                            <button onclick="setAmount(200, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€200</button>
-                            <button onclick="setAmount(250, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€250</button>
-                            <button onclick="setAmount(299, 'euro')" class="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-lg hover:bg-sky-200 transition duration-150 border border-sky-300">€299</button>
-                        </div>
-                    </div>
-                    <button onclick="clearInputsMobile()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-150 shadow-md mt-6">
-                        Clear All Data
-                    </button>
-
-                    <div class="mt-8 pt-6 border-t border-sky-200 space-y-3">
-                        <div class="flex justify-between items-center p-3 bg-sky-100 rounded-lg">
-                            <span class="text-lg font-medium text-sky-800">Gross Value (Fee Tier Check)</span>
-                            <span id="grossTakaOutput" class="text-lg font-semibold text-sky-900">0.00 BDT</span>
-                        </div>
-                        <div class="flex justify-between items-center p-3 bg-red-100 rounded-lg">
-                            <span class="text-lg font-medium text-red-800 font-semibold">Fixed Charge Deducted (EURO)</span>
-                            <span id="feeAmountEuroOutput" class="text-lg font-extrabold text-red-900">0.00 €</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 bg-sky-100 border-l-4 border-sky-700 rounded-lg">
-                            <span class="text-lg font-bold text-sky-800">Final BDT Output</span>
-                            <span id="finalTakaOutput" class="text-2xl font-extrabold text-sky-900">0.00 BDT</span>
-                        </div>
-
-                        <div id="alternativeTakaOutputBox" class="flex justify-between items-center p-3 bg-yellow-100 rounded-lg hidden transition duration-300 ease-in-out">
-                            <span id="alternativeTakaLabel" class="text-lg font-medium text-yellow-800">Alternative Output (Lower Fee Tier)</span>
-                            <span id="alternativeTakaOutput" class="text-lg font-semibold text-yellow-900">0.00 BDT</span>
-                        </div>
-                        </div>
-                </div>
-
-                <div id="takaToEuroSection" class="calculator-section hidden">
-                    <h3 class="text-xl font-bold text-gray-700 mb-4">Taka to Euro Calculation</h3>
-                    <div class="space-y-6">
-                         <div class="input-group">
-                            <label for="bdtToEuroRate" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-emerald-50">1. Exchange Rate (BDT per €)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">BDT</span>
-                                </div>
-                                <input type="number" id="bdtToEuroRate" min="0" step="0.01"
-                                       class="block w-full rounded-lg border-2 border-emerald-400 focus:border-emerald-700 focus:ring-emerald-700 p-3 sm:text-sm transition duration-150"
-                                       placeholder="000">
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="bdtToEuroAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-emerald-50">2. Enter Amount in Taka (BDT)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">BDT</span>
-                                </div>
-                                <input type="number" id="bdtToEuroAmount" min="0" step="0.01"
-                                       class="block w-full rounded-lg border-2 border-emerald-400 focus:border-emerald-700 focus:ring-emerald-700 p-3 sm:text-sm transition duration-150"
-                                       placeholder="000">
-                            </div>
-                        </div>
-
-                        <div class="w-full">
-                            <p class="text-sm font-medium text-gray-500 mb-2">Quick Select (BDT):</p>
-                            <div class="flex flex-wrap gap-1">
-                                <button onclick="setAmount(1000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">1000 BDT</button>
-                                <button onclick="setAmount(5000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">5000 BDT</button>
-                                <button onclick="setAmount(10000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">10000 BDT</button>
-                                <button onclick="setAmount(15000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">15000 BDT</button>
-                                <button onclick="setAmount(20000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">20000 BDT</button>
-                                <button onclick="setAmount(50000, 'bdt')" class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200 transition duration-150 border border-emerald-300">50000 BDT</button>
-                            </div>
-                        </div>
-                        </div>
-                    
-                    <button onclick="clearInputsMobile()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-150 shadow-md mt-6">
-                        Clear All Data
-                    </button>
-
-                    <div class="mt-8 pt-6 border-t border-emerald-200 space-y-3">
-                        <div class="flex justify-between items-center p-3 bg-emerald-100 rounded-lg">
-                            <span class="text-lg font-medium text-emerald-800">BDT Amount with 2% Charge</span>
-                            <span id="bdtWithPercentOutput" class="text-lg font-semibold text-emerald-900">0.00 BDT</span>
-                        </div>
-                        <div class="flex justify-between items-center p-3 bg-red-100 rounded-lg">
-                            <span class="text-lg font-medium text-red-800 font-semibold">Fixed Charge Added (EURO)</span>
-                            <span id="fixedEuroChargeBdtToEuroOutput" class="text-lg font-extrabold text-red-900">0.00 €</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 bg-emerald-100 border-l-4 border-emerald-700 rounded-lg">
-                            <span class="text-lg font-bold text-emerald-800">Total Euro Required</span>
-                            <span id="totalEurosOutput" class="text-2xl font-extrabold text-emerald-900">0.00 €</span>
-                        </div>
+        <div id="main-calc-exchange" class="main-calc-section hidden">
+            <div class="max-w-lg w-full mx-auto exchange-bg rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-indigo-600 to-pink-500 p-6">
+                    <h2 class="text-2xl font-bold text-white mb-2">Currency & Capital</h2>
+                    <div class="flex border-b border-indigo-500/50">
+                        <button id="EX_tab-forward" class="EX_tab-button flex-1 text-center py-3 px-4 rounded-t-lg text-sm font-semibold transition-colors duration-200" data-target="forward-calc">
+                            💰 Euros to BDT
+                        </button>
+                        <button id="EX_tab-reverse" class="EX_tab-button flex-1 text-center py-3 px-4 rounded-t-lg text-sm font-semibold transition-colors duration-200" data-target="reverse-calc">
+                            🔄 BDT to Euros
+                        </button>
+                        <button id="EX_tab-capital" class="EX_tab-button flex-1 text-center py-3 px-4 rounded-t-lg text-sm font-semibold transition-colors duration-200" data-target="capital-adj-calc">
+                            📈 Capital Adj.
+                        </button>
+                        <button id="EX_tab-incentive" class="EX_tab-button flex-1 text-center py-3 px-4 rounded-t-lg text-sm font-semibold transition-colors duration-200" data-target="bdt-incentive-calc">
+                            🎁 BDT Incentive
+                        </button>
                     </div>
                 </div>
-                
-                <div id="capitalAdjustmentSection" class="calculator-section hidden">
-                     <h3 class="text-xl font-bold text-gray-700 mb-4">Capital Adjustment (Two-Step Process)</h3>
-                    <p class="text-gray-500 mb-6 border-b pb-4">Calculates adjustments based on a starting Capital Amount in BDT (Step 1: 2.439% deduction, Step 2: 2.5% addition).</p>
 
-                    <div class="space-y-6">
-                         <div class="input-group">
-                            <label for="capitalAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-indigo-50">1. Enter Capital Amount (BDT)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">BDT</span>
+                <div class="p-6 space-y-6">
+                    <div id="EX_charge_container">
+                        <span class="block text-lg font-bold text-gray-700 mb-4 border-b pb-2">Charge Option (€)</span>
+                        <div class="space-y-3 p-4 bg-gray-50 rounded-lg border">
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="radio" name="EX_chargeOption" value="0" class="EX_charge-radio h-5 w-5 text-pink-500 focus:ring-pink-500" checked />
+                                <span class="text-gray-800 text-base font-semibold">No charge (€0)</span>
+                            </label>
+                            <div class="flex items-center gap-3">
+                                <input type="radio" name="EX_chargeOption" value="custom" class="EX_charge-radio h-5 w-5 text-pink-500 focus:ring-pink-500" id="EX_chargeCustomRadio" />
+                                <label for="EX_chargeCustom" class="text-gray-800 text-base font-semibold">Custom (€)</label>
+                                <input
+                                    id="EX_chargeCustom"
+                                    type="number"
+                                    step="0.01"
+                                    placeholder="Enter charge"
+                                    class="EX_charge-input ml-2 w-32 rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 p-2"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="forward-calc" class="EX_calc-section space-y-8"> 
+                        <h3 class="text-2xl font-bold text-indigo-700 border-b pb-2">Euros to BDT Conversion</h3>
+                        <p class="text-base text-gray-600 font-medium">Formula: (Euros - Charge) × BDT Rate</p>
+
+                        <div class="input-wrapper p-6 bg-indigo-50 rounded-xl shadow-inner space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="EX_euros" class="block text-lg font-bold text-gray-700 mb-1 p-2 rounded-t-lg bg-white/50 border-b border-indigo-200">Amount in Euros (€)</label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <input
+                                            id="EX_euros"
+                                            type="number"
+                                            step="0.01"
+                                            class="EX_input-field block w-full rounded-lg border-2 border-indigo-400 focus:border-pink-500 focus:ring-pink-500 p-3 sm:text-sm transition duration-150"
+                                        />
+                                    </div>
                                 </div>
-                                <input type="number" id="capitalAmount" min="0" step="0.01"
-                                       class="block w-full rounded-lg border-2 border-indigo-400 focus:border-indigo-700 focus:ring-indigo-700 p-3 sm:text-sm transition duration-150"
-                                       placeholder="000">
+                                <div>
+                                    <label for="EX_bdtRate" class="block text-lg font-bold text-gray-700 mb-1 p-2 rounded-t-lg bg-white/50 border-b border-indigo-200">Exchange Rate (BDT)</label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <input
+                                            id="EX_bdtRate"
+                                            type="number"
+                                            step="0.0001"
+                                            class="EX_input-field block w-full rounded-lg border-2 border-indigo-400 focus:border-pink-500 focus:ring-pink-500 p-3 sm:text-sm transition duration-150"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border-2 border-indigo-300 rounded-xl p-6 space-y-3 shadow-lg">
+                            <h4 class="text-lg font-bold text-indigo-700 border-b pb-2">Calculation Breakdown</h4>
+                            <div class="flex justify-between text-base text-gray-700">
+                                <span>Selected charge</span>
+                                <span id="EX_chargeDisplayForward" class="font-bold text-red-500">€0.00</span>
+                            </div>
+                            <div class="flex justify-between text-base text-gray-700">
+                                <span>Net euros (Euros − charge)</span>
+                                <span id="EX_netEurosDisplayForward" class="font-bold text-indigo-600">€0.00</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-indigo-200">
+                                <span class="text-xl font-extrabold text-indigo-900">FINAL BDT OUTPUT</span>
+                                <span id="EX_outputBDT" class="text-3xl font-extrabold text-pink-600">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="reverse-calc" class="EX_calc-section space-y-8 hidden">
+                        <h3 class="text-2xl font-bold text-pink-700 border-b pb-2">BDT to Euros Conversion</h3>
+                        <p class="text-base text-gray-600 font-medium">Formula: (BDT ÷ Rate in Euros) + Charge</p>
+
+                        <div class="input-wrapper p-6 bg-pink-50 rounded-xl shadow-inner space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="EX_bdtAmount" class="block text-lg font-bold text-gray-700 mb-1 p-2 rounded-t-lg bg-white/50 border-b border-pink-200">BDT Amount (Taka)</label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <input
+                                            id="EX_bdtAmount"
+                                            type="number"
+                                            step="0.01"
+                                            class="EX_input-field block w-full rounded-lg border-2 border-pink-400 focus:border-indigo-500 focus:ring-indigo-500 p-3 sm:text-sm transition duration-150"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="EX_rateEuro" class="block text-lg font-bold text-gray-700 mb-1 p-2 rounded-t-lg bg-white/50 border-b border-pink-200">Rate in Euros (€)</label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <input
+                                            id="EX_rateEuro"
+                                            type="number"
+                                            step="0.0001"
+                                            class="EX_input-field block w-full rounded-lg border-2 border-pink-400 focus:border-indigo-500 focus:ring-indigo-500 p-3 sm:text-sm transition duration-150"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border-2 border-pink-300 rounded-xl p-6 space-y-3 shadow-lg">
+                            <h4 class="text-lg font-bold text-pink-700 border-b pb-2">Calculation Breakdown</h4>
+                            <div class="flex justify-between text-base text-gray-700">
+                                <span>Selected charge (Added)</span>
+                                <span id="EX_chargeDisplayReverse" class="font-bold text-red-500">€0.00</span>
+                            </div>
+                            <div class="flex justify-between text-base text-gray-700">
+                                <span>BDT ÷ Rate in Euros</span>
+                                <span id="EX_divisionDisplay" class="font-bold text-pink-600">0.00</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-3 pt-3 border-t border-pink-200">
+                                <span class="text-xl font-extrabold text-pink-900">FINAL EURO RESULT (€)</span>
+                                <span id="EX_outputResult" class="text-3xl font-extrabold text-indigo-600">0.00</span>
                             </div>
                         </div>
                     </div>
                     
-                    <button onclick="clearInputsMobile()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-150 shadow-md mt-6">
-                        Clear All Data
-                    </button>
+                    <div id="capital-adj-calc" class="EX_calc-section space-y-6 hidden">
+                        <h3 class="text-xl font-bold text-gray-700 mb-4">Capital Adjustment (Two-Step Process)</h3>
+                        <p class="text-gray-500 mb-6 border-b pb-4">Calculates adjustments based on a starting Capital Amount in BDT (Step 1: 2.439% deduction, Step 2: 2.5% addition).</p>
 
-                    <div class="mt-8 pt-6 border-t border-indigo-200 space-y-3">
-                        <div class="flex justify-between items-center p-3 bg-indigo-100 rounded-lg">
-                            <span class="text-lg font-medium text-indigo-800">First Output (Capital - 2.439%)</span>
-                            <span id="firstOutput" class="text-lg font-semibold text-indigo-900">0.00 BDT</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 bg-indigo-100 border-l-4 border-indigo-700 rounded-lg">
-                            <span class="text-lg font-bold text-indigo-800">Final Input Value (First Output + 2.5%)</span>
-                            <span id="finalOutput" class="text-2xl font-extrabold text-indigo-900">0.00 BDT</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="bdtIncentiveSection" class="calculator-section hidden">
-                    <h3 class="text-xl font-bold text-gray-700 mb-4">BDT Incentive (Add 2.5%)</h3>
-                    <p class="text-gray-500 mb-6 border-b pb-4">Calculates your total capital after adding a straight 2.5% incentive.</p>
-                    
-                    <div class="space-y-6">
-                         <div class="input-group">
-                            <label for="bdtIncentiveCapital" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-purple-50">1. Enter Capital Amount (BDT)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">BDT</span>
+                        <div class="space-y-6">
+                             <div class="input-group">
+                                <label for="EX_capitalAmount" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-indigo-50">1. Enter Capital Amount (BDT)</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input type="number" id="EX_capitalAmount" min="0" step="0.01"
+                                           class="EX_input-field block w-full rounded-lg border-2 border-indigo-400 focus:border-indigo-700 focus:ring-indigo-700 p-3 sm:text-sm transition duration-150"
+                                           placeholder="000">
                                 </div>
-                                <input type="number" id="bdtIncentiveCapital" min="0" step="0.01"
-                                       class="block w-full rounded-lg border-2 border-purple-400 focus:border-purple-700 focus:ring-purple-700 p-3 sm:text-sm transition duration-150"
-                                       placeholder="000">
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-indigo-200 space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-indigo-100 rounded-lg">
+                                <span class="text-lg font-medium text-indigo-800">First Output (Capital - 2.439%)</span>
+                                <span id="EX_firstOutput" class="text-lg font-semibold text-indigo-900">0.00 BDT</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-indigo-100 border-l-4 border-indigo-700 rounded-lg">
+                                <span class="text-lg font-bold text-indigo-800">Final Input Value (First Output + 2.5%)</span>
+                                <span id="EX_finalOutput" class="text-2xl font-extrabold text-indigo-900">0.00 BDT</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <button onclick="clearInputsMobile()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-150 shadow-md mt-6">
-                        Clear All Data
-                    </button>
 
-                    <div class="mt-8 pt-6 border-t border-purple-200 space-y-3">
-                        <div class="flex justify-between items-center p-3 bg-purple-100 rounded-lg">
-                            <span class="text-lg font-medium text-purple-800">Input Capital</span>
-                            <span id="bdtIncentiveCapitalOut" class="text-lg font-semibold text-purple-900">0.00 BDT</span>
+                    <div id="bdt-incentive-calc" class="EX_calc-section space-y-6 hidden">
+                        <h3 class="text-xl font-bold text-gray-700 mb-4">BDT Incentive (Add 2.5%)</h3>
+                        <p class="text-gray-500 mb-6 border-b pb-4">Calculates your total capital after adding a straight 2.5% incentive.</p>
+                        
+                        <div class="space-y-6">
+                             <div class="input-group">
+                                <label for="EX_bdtIncentiveCapital" class="block text-xl font-medium text-gray-700 mb-1 p-2 rounded-t-lg bg-purple-50">1. Enter Capital Amount (BDT)</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input type="number" id="EX_bdtIncentiveCapital" min="0" step="0.01"
+                                           class="EX_input-field block w-full rounded-lg border-2 border-purple-400 focus:border-purple-700 focus:ring-purple-700 p-3 sm:text-sm transition duration-150"
+                                           placeholder="000">
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center p-3 bg-purple-100 rounded-lg">
-                            <span class="text-lg font-medium text-purple-800">Incentive Added (2.5%)</span>
-                            <span id="bdtIncentiveOut" class="text-lg font-semibold text-purple-900">0.00 BDT</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 bg-purple-100 border-l-4 border-purple-700 rounded-lg">
-                            <span class="text-lg font-bold text-purple-800">Total After Incentive</span>
-                            <span id="bdtIncentiveTotalOut" class="text-2xl font-extrabold text-purple-900">0.00 BDT</span>
+                        <div class="mt-8 pt-6 border-t border-purple-200 space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-purple-100 rounded-lg">
+                                <span class="text-lg font-medium text-purple-800">Input Capital</span>
+                                <span id="EX_bdtIncentiveCapitalOut" class="text-lg font-semibold text-purple-900">0.00 BDT</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-purple-100 rounded-lg">
+                                <span class="text-lg font-medium text-purple-800">Incentive Added (2.5%)</span>
+                                <span id="EX_bdtIncentiveOut" class="text-lg font-semibold text-purple-900">0.00 BDT</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-purple-100 border-l-4 border-purple-700 rounded-lg">
+                                <span class="text-lg font-bold text-purple-800">Total After Incentive</span>
+                                <span id="EX_bdtIncentiveTotalOut" class="text-2xl font-extrabold text-purple-900">0.00 BDT</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mt-8 pt-4 border-t border-gray-200 text-center text-sm text-gray-500">
-                    Developed by: Syed Nadir Ahmed
-                    <div class="flex justify-center space-x-4 mt-1">
-                        <a href="https://github.com/SyedNadirAhmed" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-150">GitHub</a>
-                        <a href="https://bd.linkedin.com/in/syed-nadir-ahmed-20156213a" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-150">LinkedIn</a>
+
+
+                    <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
+                        <button
+                            id="EX_calcBtn"
+                            class="flex-1 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-500 px-4 py-3 text-white font-semibold shadow hover:opacity-90 transition text-lg"
+                        >
+                            Calculate
+                        </button>
+                        <button
+                            id="EX_resetBtn"
+                            class="flex-1 rounded-lg bg-gray-100 px-4 py-3 text-gray-800 font-semibold shadow hover:bg-gray-200 transition text-lg"
+                        >
+                            Reset
+                        </button>
+                    </div>
+
+                    <div class="mt-4 text-center text-sm text-gray-500">
+                        Developed by: Syed Nadir Ahmed
+                        <div class="flex justify-center space-x-4 mt-1">
+                            <a href="https://github.com/SyedNadirAhmed" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-150">GitHub</a>
+                            <a href="https://bd.linkedin.com/in/syed-nadir-ahmed-20156213a" target="_blank" class="text-blue-500 hover:text-blue-700 transition duration-150">LinkedIn</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -473,9 +462,11 @@
 
             // Re-initialize the active sub-calculator on switch
             if (targetId === 'exchange') {
+                // Ensure charge display is visible for the initial tab
+                document.getElementById('EX_charge_container').classList.remove('hidden');
                 switchCalculatorExchange('forward-calc');
             } else if (targetId === 'mobile') {
-                showSection('euroToTaka');
+                switchCalculatorMobile('euroToTaka');
             }
         }
 
@@ -483,12 +474,13 @@
             button.addEventListener('click', () => switchMainCalculator(button.dataset.target));
         });
 
-        // --- 1. CURRENCY EXCHANGE CALCULATOR SCRIPT (Namespaced with EX_) ---
+        // --- 1. CURRENCY AND CAPITAL CALCULATOR SCRIPT (Namespaced with EX_) ---
         // --- Shared Elements ---
         const EX_tabButtons = document.querySelectorAll('.EX_tab-button');
         const EX_calcSections = document.querySelectorAll('.EX_calc-section');
         const EX_calcBtn = document.getElementById('EX_calcBtn');
         const EX_resetBtn = document.getElementById('EX_resetBtn');
+        const EX_chargeContainer = document.getElementById('EX_charge_container');
 
         const EX_chargeRadios = document.querySelectorAll('input[name="EX_chargeOption"]');
         const EX_chargeCustomRadio = document.getElementById('EX_chargeCustomRadio');
@@ -508,6 +500,18 @@
         const EX_divisionDisplay = document.getElementById('EX_divisionDisplay');
         const EX_outputResult = document.getElementById('EX_outputResult');
 
+        // --- Capital Adjustment Elements (New) ---
+        const EX_capitalAmountInput = document.getElementById('EX_capitalAmount');
+        const EX_firstOutputElement = document.getElementById('EX_firstOutput');
+        const EX_finalOutputElement = document.getElementById('EX_finalOutput');
+
+        // --- BDT Incentive Elements (New) ---
+        const EX_bdtIncentiveCapitalInput = document.getElementById('EX_bdtIncentiveCapital');
+        const EX_bdtIncentiveCapitalOutEl = document.getElementById('EX_bdtIncentiveCapitalOut');
+        const EX_bdtIncentiveOutEl = document.getElementById('EX_bdtIncentiveOut');
+        const EX_bdtIncentiveTotalOutEl = document.getElementById('EX_bdtIncentiveTotalOut');
+
+
         let EX_activeCalculator = 'forward-calc'; // State to track which calculator is active
 
         // --- Utility Functions ---
@@ -515,6 +519,15 @@
         function EX_toNum(v) {
             const n = parseFloat(v);
             return isNaN(n) ? 0 : n;
+        }
+        
+        function EX_formatBDT(amount) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'BDT',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount);
         }
 
         function EX_getSelectedCharge() {
@@ -562,12 +575,57 @@
             EX_divisionDisplay.textContent = division.toFixed(2);
             EX_outputResult.textContent = result.toFixed(2);
         }
+        
+        // Capital Adjustment Calculator Logic
+        function EX_calculateCapitalAdjustment() {
+            const capitalAmount = EX_toNum(EX_capitalAmountInput.value);
+
+            if (capitalAmount <= 0) {
+                EX_firstOutputElement.textContent = EX_formatBDT(0);
+                EX_finalOutputElement.textContent = EX_formatBDT(0);
+                return;
+            }
+
+            // Step 1: C * (1 - 0.02439) => C * 0.97561
+            const firstOutput = capitalAmount * 0.97561;
+
+            EX_firstOutputElement.textContent = EX_formatBDT(firstOutput);
+
+            // Step 2: O1 * (1 + 0.025) => O1 * 1.025
+            const finalOutput = firstOutput * 1.025;
+            
+            EX_finalOutputElement.textContent = EX_formatBDT(finalOutput);
+        }
+
+        // BDT Incentive Calculator Logic
+        function EX_calculateBdtIncentive() {
+            const val = EX_toNum(EX_bdtIncentiveCapitalInput.value);
+
+            if (val <= 0) {
+                EX_bdtIncentiveCapitalOutEl.textContent = EX_formatBDT(0);
+                EX_bdtIncentiveOutEl.textContent = EX_formatBDT(0);
+                EX_bdtIncentiveTotalOutEl.textContent = EX_formatBDT(0);
+                return;
+            }
+
+            const rate = 0.025;
+            const incentive = val * rate;
+            const total = val + incentive;
+
+            EX_bdtIncentiveCapitalOutEl.textContent = EX_formatBDT(val);
+            EX_bdtIncentiveOutEl.textContent = EX_formatBDT(incentive);
+            EX_bdtIncentiveTotalOutEl.textContent = EX_formatBDT(total);
+        }
 
         function EX_calculate() {
             if (EX_activeCalculator === 'forward-calc') {
                 EX_calculateForward();
-            } else {
+            } else if (EX_activeCalculator === 'reverse-calc') {
                 EX_calculateReverse();
+            } else if (EX_activeCalculator === 'capital-adj-calc') {
+                EX_calculateCapitalAdjustment();
+            } else if (EX_activeCalculator === 'bdt-incentive-calc') {
+                EX_calculateBdtIncentive();
             }
         }
 
@@ -575,7 +633,9 @@
 
         function switchCalculatorExchange(targetId) {
             EX_activeCalculator = targetId;
+            const isCurrencyCalc = targetId === 'forward-calc' || targetId === 'reverse-calc';
 
+            // 1. Hide/Show sections
             EX_calcSections.forEach(section => {
                 if (section.id === targetId) {
                     section.classList.remove('hidden');
@@ -583,18 +643,42 @@
                     section.classList.add('hidden');
                 }
             });
+            
+            // 2. Hide/Show Charge section
+            if (isCurrencyCalc) {
+                EX_chargeContainer.classList.remove('hidden');
+            } else {
+                EX_chargeContainer.classList.add('hidden');
+            }
 
+            // 3. Update tab styling
             EX_tabButtons.forEach(button => {
-                if (button.dataset.target === targetId) {
-                    button.classList.add('bg-white/10', 'text-white', 'border-b-2', 'border-white');
-                    button.classList.remove('text-indigo-100');
+                const buttonTarget = button.dataset.target;
+                
+                // Reset classes for all tabs
+                button.classList.remove('bg-white', 'text-indigo-800', 'bg-indigo-100', 'bg-pink-50', 'text-pink-600', 'text-indigo-100', 'shadow-lg', 'mb-[-4px]', 'z-10', 'font-bold', 'font-semibold');
+                
+                if (buttonTarget === targetId) {
+                    // Active Tab Styling: Add shadow, z-index, and float it up slightly
+                    button.classList.add('shadow-lg', 'mb-[-4px]', 'z-10', 'font-bold');
+
+                    if (isCurrencyCalc) {
+                        // Currency Tabs: White background, darker text
+                        button.classList.add('bg-white', 'text-indigo-800');
+                    } else if (buttonTarget === 'capital-adj-calc') {
+                        // Capital Adj Tab: Light Indigo background, darker text
+                        button.classList.add('bg-indigo-100', 'text-indigo-800');
+                    } else if (buttonTarget === 'bdt-incentive-calc') {
+                        // BDT Incentive Tab: Light Pink background, darker text (using pink-50 to match the gradient)
+                        button.classList.add('bg-pink-50', 'text-pink-600');
+                    }
                 } else {
-                    button.classList.remove('bg-white/10', 'text-white', 'border-b-2', 'border-white');
-                    button.classList.add('text-indigo-100');
+                    // Inactive Tab Styling: Transparent/faded text
+                    button.classList.add('text-indigo-100', 'font-semibold');
                 }
             });
 
-            // Recalculate for the new active tab
+            // 4. Recalculate for the new active tab
             EX_calculate();
         }
 
@@ -609,7 +693,9 @@
             // Reset result displays
             const zeroCharge = '€0.00';
             const zeroValue = '0.00';
+            const zeroBDT = EX_formatBDT(0);
             
+            // Currency Calcs
             EX_chargeDisplayForward.textContent = zeroCharge;
             EX_netEurosDisplayForward.textContent = zeroCharge;
             EX_outputBDT.textContent = zeroValue;
@@ -617,8 +703,18 @@
             EX_chargeDisplayReverse.textContent = zeroCharge;
             EX_divisionDisplay.textContent = zeroValue;
             EX_outputResult.textContent = zeroValue;
+            
+            // Capital Calcs
+            EX_firstOutputElement.textContent = zeroBDT;
+            EX_finalOutputElement.textContent = zeroBDT;
+            
+            // Incentive Calcs
+            EX_bdtIncentiveCapitalOutEl.textContent = zeroBDT;
+            EX_bdtIncentiveOutEl.textContent = zeroBDT;
+            EX_bdtIncentiveTotalOutEl.textContent = zeroBDT;
 
-            // Recalculate 
+
+            // Recalculate (to show reset values in the active tab)
             EX_calculate();
         }
 
@@ -628,7 +724,16 @@
             button.addEventListener('click', () => switchCalculatorExchange(button.dataset.target));
         });
 
-        document.querySelectorAll('.EX_input-field').forEach(el => el.addEventListener('input', EX_calculate));
+        // Add listeners for the new inputs
+        EX_capitalAmountInput.addEventListener('input', EX_calculateCapitalAdjustment);
+        EX_bdtIncentiveCapitalInput.addEventListener('input', EX_calculateBdtIncentive);
+
+        // Inputs triggering EX_calculate (for currency tabs)
+        EX_eurosEl.addEventListener('input', EX_calculate);
+        EX_bdtRateEl.addEventListener('input', EX_calculate);
+        EX_bdtAmountEl.addEventListener('input', EX_calculate);
+        EX_rateEuroEl.addEventListener('input', EX_calculate);
+        
         EX_chargeRadios.forEach(r => r.addEventListener('change', EX_calculate));
         EX_chargeCustomEl.addEventListener('input', () => {
             if (!EX_chargeCustomRadio.checked) EX_chargeCustomRadio.checked = true;
@@ -639,7 +744,7 @@
         EX_resetBtn.addEventListener('click', EX_resetAll);
 
 
-        // --- 2. MOBILE MONEY AND CAPITAL CALCULATOR SCRIPT (From index.html) ---
+        // --- 2. MOBILE MONEY CALCULATOR SCRIPT (Namespaced with MM_) ---
         
         const FEE_TIERS = [
             { start: 0, fee: 1.50, name: "1-1000 BDT" },
@@ -652,6 +757,15 @@
             { start: 50001, fee: 6.50, name: "50001-100000 BDT" },
             // Fee is 0 above 100000 BDT
         ];
+        
+        const MM_tabButtons = document.querySelectorAll('.MM_tab-button');
+        const MM_calcSections = document.querySelectorAll('#main-calc-mobile .calculator-section');
+        const MM_h2 = document.querySelector('#main-calc-mobile h2');
+
+        const euroInput = document.getElementById('euroAmount');
+        const rateInput = document.getElementById('exchangeRate');
+        const bdtToEuroAmountInput = document.getElementById('bdtToEuroAmount');
+        const bdtToEuroRateInput = document.getElementById('bdtToEuroRate');
 
         function getFixedEuroFeeByTaka(bdtValue) {
             if (isNaN(bdtValue) || bdtValue <= 0) return 0;
@@ -729,9 +843,10 @@
                 isAlternativeOutputShown = true;
             }
             
-            if (!isAlternativeOutputShown) {
+            if (!alternativeTakaOutputBox.classList.contains('hidden') && !isAlternativeOutputShown) {
                 alternativeTakaOutputBox.classList.add('hidden');
             }
+
 
             grossTakaOutput.textContent = `${grossTaka.toFixed(2)} BDT`;
             feeAmountEuroOutput.textContent = `${feeAmountEuro.toFixed(2)} €`;
@@ -765,65 +880,6 @@
             totalEurosOutput.textContent = `${totalEuros.toFixed(2)} €`;
         }
         
-        function formatBDT(amount) {
-            return new Intl.NumberFormat('en-IN', {
-                style: 'currency',
-                currency: 'BDT',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }).format(amount);
-        }
-
-        function calculateCapitalAdjustment() {
-            const capitalAmountInput = document.getElementById('capitalAmount');
-            const capitalAmount = parseFloat(capitalAmountInput.value) || 0;
-
-            const firstOutputElement = document.getElementById('firstOutput');
-            const finalOutputElement = document.getElementById('finalOutput');
-
-            if (capitalAmount <= 0) {
-                firstOutputElement.textContent = formatBDT(0);
-                finalOutputElement.textContent = formatBDT(0);
-                return;
-            }
-
-            // Calculation: C * (1 - 0.02439) => C * 0.97561
-            const firstOutput = capitalAmount * 0.97561;
-
-            firstOutputElement.textContent = formatBDT(firstOutput);
-
-            // Calculation: O1 * (1 + 0.025) => O1 * 1.025
-            const finalOutput = firstOutput * 1.025;
-            
-            finalOutputElement.textContent = formatBDT(finalOutput);
-        }
-
-        // NEW FUNCTION: BDT Incentive Calculator (2.5% add)
-        function calculateBdtIncentive() {
-            const capitalAmountInput = document.getElementById('bdtIncentiveCapital');
-            const val = parseFloat(capitalAmountInput.value) || 0;
-
-            const capitalOutEl = document.getElementById('bdtIncentiveCapitalOut');
-            const incentiveOutEl = document.getElementById('bdtIncentiveOut');
-            const totalOutEl = document.getElementById('bdtIncentiveTotalOut');
-
-            if (val <= 0) {
-                capitalOutEl.textContent = formatBDT(0);
-                incentiveOutEl.textContent = formatBDT(0);
-                totalOutEl.textContent = formatBDT(0);
-                return;
-            }
-
-            const rate = 0.025;
-            const incentive = val * rate;
-            const total = val + incentive;
-
-            capitalOutEl.textContent = formatBDT(val);
-            incentiveOutEl.textContent = formatBDT(incentive);
-            totalOutEl.textContent = formatBDT(total);
-        }
-
-
         function setAmount(amount, currency) {
             if (currency === 'euro') {
                 document.getElementById('euroAmount').value = amount;
@@ -836,19 +892,11 @@
 
         function clearInputsMobile() {
             // Clear E/T inputs
-            document.getElementById('euroAmount').value = '';
-            document.getElementById('bdtToEuroAmount').value = '';
-            document.getElementById('exchangeRate').value = ''; 
-            document.getElementById('bdtToEuroRate').value = '';
-            // Clear Capital inputs
-            document.getElementById('capitalAmount').value = '';
-            document.getElementById('bdtIncentiveCapital').value = '';
+            document.querySelectorAll('.MM_input-field').forEach(el => el.value = '');
 
             // Recalculate to reset outputs for *all* tabs
             calculateEuroToTaka();
             calculateTakaToEuro();
-            calculateCapitalAdjustment();
-            calculateBdtIncentive(); // New
 
             // Focus on the first input of the active section
             const activeSection = document.querySelector('#main-calc-mobile .calculator-section:not(.hidden)');
@@ -860,187 +908,68 @@
             }
         }
 
-        const euroInput = document.getElementById('euroAmount');
-        const rateInput = document.getElementById('exchangeRate');
-        const bdtToEuroAmountInput = document.getElementById('bdtToEuroAmount');
-        const bdtToEuroRateInput = document.getElementById('bdtToEuroRate');
-        const capitalAmountInput = document.getElementById('capitalAmount');
-        const bdtIncentiveCapitalInput = document.getElementById('bdtIncentiveCapital'); // New Input
-
-        function showSection(sectionId) {
-            // Hide/Show Section
-            document.querySelectorAll('#main-calc-mobile .calculator-section').forEach(section => {
-                section.classList.add('hidden');
-            });
-            document.getElementById(sectionId + 'Section').classList.remove('hidden');
-
-            const allColorClasses = [
-                'text-sky-700', 'border-sky-500', 'bg-sky-100', 'text-emerald-700', 'border-emerald-500', 'bg-emerald-100',
-                'bg-sky-600', 'bg-sky-700', 'bg-sky-400', 'bg-sky-50', 
-                'bg-emerald-600', 'bg-emerald-700', 'bg-emerald-400', 'bg-emerald-50', 
-                'bg-indigo-600', 'bg-indigo-700', 'bg-indigo-400', 'bg-indigo-50',
-                'bg-purple-600', 'bg-purple-700', 'bg-purple-400', 'bg-purple-50', // New Purple
-                'bg-sky-300', 'bg-emerald-300', 'bg-indigo-300', 'bg-purple-300', // New Purple
-                'border-sky-400', 'focus:border-sky-700', 'focus:ring-sky-700',
-                'border-emerald-400', 'focus:border-emerald-700', 'focus:ring-emerald-700',
-                'border-indigo-400', 'focus:border-indigo-700', 'focus:ring-indigo-700',
-                'border-purple-400', 'focus:border-purple-700', 'focus:ring-purple-700', // New Purple
-                'border-sky-700', 'text-sky-800', 'text-sky-900',
-                'border-emerald-700', 'text-emerald-800', 'text-emerald-900',
-                'border-indigo-700', 'text-indigo-800', 'text-indigo-900',
-                'border-purple-700', 'text-purple-800', 'text-purple-900', // New Purple
-                'text-white', 'font-bold', 'shadow-lg', 'text-gray-600', 'text-gray-800', 'border-transparent', 'shadow-md', 'hover-teal',
-                'bg-red-100', 'text-red-800', 'text-red-900',
-            ];
-            
-            const tabEuro = document.getElementById('tab-euro-to-taka');
-            const tabTaka = document.getElementById('tab-taka-to-euro');
-            const tabCapital = document.getElementById('tab-capital-adjustment');
-            const tabBdtIncentive = document.getElementById('tab-bdt-incentive'); // New Tab
-
-            // 1. Reset all tabs
-            tabEuro.classList.remove(...allColorClasses);
-            tabEuro.classList.add('text-white', 'border-transparent', 'bg-sky-400', 'hover-teal'); 
-
-            tabTaka.classList.remove(...allColorClasses);
-            tabTaka.classList.add('text-white', 'border-transparent', 'bg-emerald-400', 'hover-teal'); 
-            
-            tabCapital.classList.remove(...allColorClasses);
-            tabCapital.classList.add('text-white', 'border-transparent', 'bg-indigo-400', 'hover-teal'); 
-            
-            tabBdtIncentive.classList.remove(...allColorClasses); // New Tab Reset
-            tabBdtIncentive.classList.add('text-white', 'border-transparent', 'bg-purple-400', 'hover-teal'); 
-
-            
-            // 2. Update H2 color and clean up input borders
-            const h2 = document.querySelector('#main-calc-mobile h2');
-            h2.classList.remove(...allColorClasses); 
-            
-            const inputElements = [euroInput, rateInput, bdtToEuroAmountInput, bdtToEuroRateInput, capitalAmountInput, bdtIncentiveCapitalInput]; // New Input
-            inputElements.forEach(input => input.classList.remove(...allColorClasses.filter(c => c.startsWith('border-') || c.startsWith('focus:'))));
-            
-            const finalTakaOutputBox = document.querySelector('#euroToTakaSection .border-l-4');
-            const totalEurosOutputBox = document.querySelector('#takaToEuroSection .border-l-4');
-            const finalCapitalOutputBox = document.querySelector('#capitalAdjustmentSection .border-l-4');
-            const finalBdtIncentiveOutputBox = document.querySelector('#bdtIncentiveSection .border-l-4'); // New Output Box
-
-            const outputBoxes = [finalTakaOutputBox, totalEurosOutputBox, finalCapitalOutputBox, finalBdtIncentiveOutputBox]; // New Output Box
-            outputBoxes.forEach(box => {
-                if (box) {
-                    box.classList.remove(...allColorClasses);
-                    const spans = box.querySelectorAll('span');
-                    spans.forEach(span => span.classList.remove(...allColorClasses));
+        function switchCalculatorMobile(targetId) {
+            // 1. Hide/Show sections
+            MM_calcSections.forEach(section => {
+                if (section.id === targetId + 'Section') {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
                 }
             });
 
-            // 3. Activate the selected tab
-            const activeTab = document.getElementById('tab-' + sectionId);
-            
-            if (sectionId === 'euroToTaka') {
-                activeTab.classList.remove('text-white', 'bg-sky-400');
-                activeTab.classList.add('text-white', 'border-sky-700', 'bg-sky-700', 'font-bold', 'shadow-lg');
-                h2.classList.add('text-sky-700', 'text-center');
+            // 2. Update tab styling
+            MM_tabButtons.forEach(button => {
+                const buttonTarget = button.dataset.target;
                 
-                euroInput.classList.add('border-sky-400', 'focus:border-sky-700', 'focus:ring-sky-700');
-                rateInput.classList.add('border-sky-400', 'focus:border-sky-700', 'focus:ring-sky-700');
+                // Reset classes for all tabs
+                button.classList.remove('bg-sky-700', 'text-white', 'border-sky-700', 'bg-emerald-700', 'border-emerald-700', 'shadow-lg', 'mb-[-4px]', 'z-10', 'font-bold', 'text-sky-100', 'text-emerald-100');
                 
-                if(finalTakaOutputBox) {
-                    finalTakaOutputBox.classList.add('bg-sky-100', 'border-l-4', 'border-sky-700');
-                    finalTakaOutputBox.querySelector('span:first-child').classList.add('text-lg', 'font-bold', 'text-sky-800');
-                    finalTakaOutputBox.querySelector('span:last-child').classList.add('text-2xl', 'font-extrabold', 'text-sky-900');
+                if (buttonTarget === targetId) {
+                    // Active Tab Styling: Add shadow, z-index, and float it up slightly
+                    button.classList.add('shadow-lg', 'mb-[-4px]', 'z-10', 'font-bold', 'text-white');
+                    
+                    if (targetId === 'euroToTaka') {
+                        // Sky active
+                        button.classList.add('bg-sky-700');
+                    } else if (targetId === 'takaToEuro') {
+                        // Emerald active
+                        button.classList.add('bg-emerald-700');
+                    }
+                } else {
+                    // Inactive Tab Styling: Faded text against the gradient header
+                    if (buttonTarget === 'euroToTaka') {
+                        button.classList.add('text-sky-100');
+                    } else if (targetId === 'takaToEuro') {
+                        button.classList.add('text-emerald-100');
+                    }
                 }
-                
+            });
 
+            // 3. Recalculate for the new active tab
+            if (targetId === 'euroToTaka') {
                 calculateEuroToTaka();
-
-            } else if (sectionId === 'takaToEuro') {
-                activeTab.classList.remove('text-white', 'bg-emerald-400');
-                activeTab.classList.add('text-white', 'border-emerald-700', 'bg-emerald-700', 'font-bold', 'shadow-lg');
-                h2.classList.add('text-emerald-700', 'text-center');
-                
-                bdtToEuroRateInput.classList.add('border-emerald-400', 'focus:border-emerald-700', 'focus:ring-emerald-700');
-                bdtToEuroAmountInput.classList.add('border-emerald-400', 'focus:border-emerald-700', 'focus:ring-emerald-700');
-                
-                if(totalEurosOutputBox) {
-                    totalEurosOutputBox.classList.add('bg-emerald-100', 'border-l-4', 'border-emerald-700');
-                    totalEurosOutputBox.querySelector('span:first-child').classList.add('text-lg', 'font-bold', 'text-emerald-800');
-                    totalEurosOutputBox.querySelector('span:last-child').classList.add('text-2xl', 'font-extrabold', 'text-emerald-900');
-                }
-                
-                const bdtWithPercentOutputBox = document.querySelector('#takaToEuroSection > .mt-8 > div:nth-child(1)');
-                if(bdtWithPercentOutputBox) {
-                    bdtWithPercentOutputBox.classList.remove('bg-red-100');
-                    bdtWithPercentOutputBox.classList.add('bg-emerald-100');
-                    bdtWithPercentOutputBox.querySelector('span:first-child').classList.remove('text-red-800');
-                    bdtWithPercentOutputBox.querySelector('span:first-child').classList.add('text-emerald-800');
-                    bdtWithPercentOutputBox.querySelector('span:last-child').classList.remove('text-red-900');
-                    bdtWithPercentOutputBox.querySelector('span:last-child').classList.add('text-emerald-900');
-                }
-
-
+            } else if (targetId === 'takaToEuro') {
                 calculateTakaToEuro();
-            } else if (sectionId === 'capitalAdjustment') {
-                activeTab.classList.remove('text-white', 'bg-indigo-400');
-                activeTab.classList.add('text-white', 'border-indigo-700', 'bg-indigo-700', 'font-bold', 'shadow-lg');
-                h2.classList.add('text-indigo-700', 'text-center');
-
-                capitalAmountInput.classList.add('border-indigo-400', 'focus:border-indigo-700', 'focus:ring-indigo-700');
-
-                if(finalCapitalOutputBox) {
-                    finalCapitalOutputBox.classList.add('bg-indigo-100', 'border-l-4', 'border-indigo-700');
-                    finalCapitalOutputBox.querySelector('span:first-child').classList.add('text-lg', 'font-bold', 'text-indigo-800');
-                    finalCapitalOutputBox.querySelector('span:last-child').classList.add('text-2xl', 'font-extrabold', 'text-indigo-900');
-                }
-
-                const firstOutputBox = document.querySelector('#capitalAdjustmentSection > .mt-8 > div:nth-child(1)');
-                if(firstOutputBox) {
-                    firstOutputBox.classList.remove('bg-gray-50');
-                    firstOutputBox.classList.add('bg-indigo-100');
-                    firstOutputBox.querySelector('span:first-child').classList.remove('text-gray-600');
-                    firstOutputBox.querySelector('span:first-child').classList.add('text-indigo-800');
-                    firstOutputBox.querySelector('span:last-child').classList.remove('text-green-700');
-                    firstOutputBox.querySelector('span:last-child').classList.add('text-indigo-900');
-                }
-
-                calculateCapitalAdjustment();
-            } else if (sectionId === 'bdtIncentive') {
-                activeTab.classList.remove('text-white', 'bg-purple-400');
-                activeTab.classList.add('text-white', 'border-purple-700', 'bg-purple-700', 'font-bold', 'shadow-lg');
-                h2.classList.add('text-purple-700', 'text-center');
-
-                bdtIncentiveCapitalInput.classList.add('border-purple-400', 'focus:border-purple-700', 'focus:ring-purple-700');
-
-                if(finalBdtIncentiveOutputBox) {
-                    finalBdtIncentiveOutputBox.classList.add('bg-purple-100', 'border-l-4', 'border-purple-700');
-                    finalBdtIncentiveOutputBox.querySelector('span:first-child').classList.add('text-lg', 'font-bold', 'text-purple-800');
-                    finalBdtIncentiveOutputBox.querySelector('span:last-child').classList.add('text-2xl', 'font-extrabold', 'text-purple-900');
-                }
-                
-                document.querySelectorAll('#bdtIncentiveSection > .mt-8 > div:not(:last-child)').forEach(box => {
-                    box.classList.remove('bg-indigo-100');
-                    box.classList.add('bg-purple-100');
-                    box.querySelector('span:first-child').classList.remove('text-indigo-800');
-                    box.querySelector('span:first-child').classList.add('text-purple-800');
-                    box.querySelector('span:last-child').classList.remove('text-indigo-900');
-                    box.querySelector('span:last-child').classList.add('text-purple-900');
-                });
-                
-                calculateBdtIncentive();
             }
         }
 
+        // --- Event Listeners for Mobile Calculator ---
+
+        MM_tabButtons.forEach(button => {
+            button.addEventListener('click', () => switchCalculatorMobile(button.dataset.target));
+        });
+        
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Calculator Listeners
+            // Mobile Calculator Listeners (Only Euro/Taka related)
             euroInput.addEventListener('input', calculateEuroToTaka);
             rateInput.addEventListener('input', calculateEuroToTaka);
             bdtToEuroAmountInput.addEventListener('input', calculateTakaToEuro);
             bdtToEuroRateInput.addEventListener('input', calculateTakaToEuro);
-            capitalAmountInput.addEventListener('input', calculateCapitalAdjustment);
-            bdtIncentiveCapitalInput.addEventListener('input', calculateBdtIncentive); // New Listener
 
-            // Initial setup - Start with the Currency Exchange Calculator active
-            switchMainCalculator('exchange');
-            switchCalculatorExchange('forward-calc');
+            // Initial setup - Start with the Mobile Money Calculator active
+            switchMainCalculator('mobile');
+            switchCalculatorMobile('euroToTaka');
         });
     </script>
 </body>
